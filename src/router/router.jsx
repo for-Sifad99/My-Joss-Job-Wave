@@ -5,6 +5,7 @@ import {
 } from "react-router";
 import Root from '../layouts/Root';
 import AllJobs from '../pages/AllJobs/AllJobs';
+import Register from '../pages/Register/Register';
 
 const router = createBrowserRouter([
     {
@@ -12,7 +13,9 @@ const router = createBrowserRouter([
         Component: Root,
         children: [
             {index: true, Component: Home},
-            {path : '/jobs', Component: AllJobs}
+            { path: '/register', Component: Register },
+            {path : '/jobs', Component: AllJobs},
+
         ]
     },
 ]);

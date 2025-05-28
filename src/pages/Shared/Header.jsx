@@ -42,7 +42,7 @@ const Header = () => {
 
     return (
         <header id='navbar' className="sticky w-full bg-white dark:bg-[var(--color-bg)] top-0 z-50">
-            <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 md:py-4">
+            <div className="max-w-7xl mx-auto flex items-center justify-between lg:px-4 md:px-24 sm:px-10 px-4 py-3 md:py-4">
                 <div className='flex justify-between items-center'>
                     {/* Logo */}
                     <div className="flex items-center">
@@ -87,7 +87,7 @@ const Header = () => {
                             </button>
                         </div>
                     </div>
-                    <Link to='/register' className="flex gap-2 items-center  [var(--color-light-accent)] dark:text-[var(--color-dark-accent)] underline transition-all duration-300 hover:-translate-y-1">Register  <FaUserPlus /></Link>
+                    <Link to='/register' className="flex gap-2 items-center text-[var(--color-light-accent)] dark:text-[var(--color-dark-accent)] underline transition-all duration-300 hover:-translate-y-1">Register  <FaUserPlus /></Link>
                     <Link to='/login'>
                         <button className="group flex gap-1 items-center px-6 py-3 bg-[#3c65f5] text-white rounded-md  hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 transition-all duration-300 hover:-translate-y-1">Sign In <IoMdLogIn className='transition-all duration-300 group-hover:translate-x-2' /> </button>
                     </Link>
