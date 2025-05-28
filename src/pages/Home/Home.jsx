@@ -13,8 +13,8 @@ const Home = () => {
             </Helmet>
 
             {/* Content */}
-            <section className='h-[200px]'>
-                <h1>Hello This is Home!</h1>
+            <section className='h-[500px] my-20'>
+                <h1 className=''>Hello This is Home!</h1>
             </section>
         </>
     );
