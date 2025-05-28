@@ -10,20 +10,34 @@ import { useDarkMode } from '../../contexts/ThemeContext';
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const { darkMode, setDarkMode } = useDarkMode();
+    const menuRef = useRef();
 
+    // Links style And for active Links style
     const linksStyle = ({ isActive }) =>
         `
     hover:dark:text-[var(--color-dark-accent)] hover:text-[var(--color-light-accent)] font-medium transition-all duration-300 lg:hover:-translate-y-1 lg:hover:translate-x-0 hover:-translate-x-2
     ${isActive ? "text-[var(--color-light-accent)] dark:text-[var(--color-dark-accent)] lg:border-b-2 border-[var(--color-light-accent)] dark:border-[var(--color-dark-accent)]" : 'dark:text-[var(--color-dark-primary)]'}
     `
 
+    // Close menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (menuRef.current && !menuRef.current.contains(e.target)) {
+                setMenuOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, []);
+
+    // All Links
     const links = <>
-        <NavLink to="/" className={linksStyle}>Home</NavLink>
-        <NavLink to="/jobs" className={linksStyle}>All Jobs</NavLink>
-        <NavLink to="/add-jobs" className={linksStyle}>All Jobs</NavLink>
-        <NavLink to="/application/me" className={linksStyle}>My Applications</NavLink>
-        <NavLink to="/my-jobs" className={linksStyle}>My Jobs</NavLink>
-        <NavLink to="/contact" className={linksStyle}>Contact</NavLink>
+        <NavLink to="/" onClick={() => setMenuOpen(false)} className={linksStyle}>Home</NavLink>
+        <NavLink to="/jobs" onClick={() => setMenuOpen(false)} className={linksStyle}>All Jobs</NavLink>
+        <NavLink to="/add-jobs" onClick={() => setMenuOpen(false)} className={linksStyle}>All Jobs</NavLink>
+        <NavLink to="/application/me" onClick={() => setMenuOpen(false)} className={linksStyle}>My Applications</NavLink>
+        <NavLink to="/my-jobs" onClick={() => setMenuOpen(false)} className={linksStyle}>My Jobs</NavLink>
+        <NavLink to="/contact" onClick={() => setMenuOpen(false)} className={linksStyle}>Contact</NavLink>
     </>
 
     return (
@@ -47,7 +61,7 @@ const Header = () => {
                 {/* Auth and Theme Buttons - Desktop */}
                 <div className="hidden lg:flex text-sm space-x-6 items-center">
                     {/* Theme */}
-                    <div className="dropdown  dark:text-[var(--color-dark-primary)] border-[var(--color-light-accent)] dark:border-[var(--color-dark-accent)]">
+                    <div className="dropdown dark:text-[var(--color-dark-primary)] border-[var(--color-light-accent)] dark:border-[var(--color-dark-accent)]">
                         <button className="group flex gap-1 items-center  py-3 rounded-md">
                             <span className='flex items-center gap-1'>
                                 {darkMode ? <MdDarkMode size={20} className='-rotate-10 group-hover:rotate-26 transition-all duration-300' /> : <MdLightMode size={20} className='text-orange-300 -rotate-10 group-hover:rotate-26 transition-all duration-300' />}
@@ -93,7 +107,7 @@ const Header = () => {
 
             {/* Mobile Menu */}
             {menuOpen && (
-                <div className="lg:hidden fixed inset-0 z-50" style={{ pointerEvents: 'none' }}>
+                <div ref={menuRef} className="lg:hidden fixed inset-0 z-50" style={{ pointerEvents: 'none' }}>
                     <div
                         className="bg-white dark:bg-[var(--color-bg)] h-full w-[300px] sm:w-[340px] md:w-[400px] flex flex-col gap-6 absolute right-0 top-0 shadow-lg"
                         style={{
