@@ -1,13 +1,15 @@
 import React, { useContext, useState } from "react";
 import { FiUser, FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import registerLottie from '../../assets/lotties/register.json';
 import { Helmet } from "react-helmet-async";
 import Lottie from "lottie-react";
 import { AuthContext } from "../../contexts/AuthContexts/AuthContext";
+import Swal from "sweetalert2";
 
 const Register = () => {
     const { setUser, createUser } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
 
     const handleRegister = (e) => {
@@ -23,7 +25,27 @@ const Register = () => {
         createUser(email, password)
             .then((result) => {
                 const currentUser = result.user;
-                setUser(currentUser);
+
+                // Sweet Alert :
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: "Account created successfully!!"
+                });
+                setTimeout(() => {
+                    setUser(currentUser);
+                    navigate('/')
+                }, 3000);
             })
             .catch((error) => {
                 console.error(error);

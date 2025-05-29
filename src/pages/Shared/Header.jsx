@@ -2,21 +2,48 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { FaUserPlus } from 'react-icons/fa';
 import { FiSearch } from 'react-icons/fi';
 import { MdDarkMode, MdLightMode } from 'react-icons/md';
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 import { useDarkMode } from '../../contexts/ThemeContexts/ThemeContext';
 import { AuthContext } from '../../contexts/AuthContexts/AuthContext';
 import { GoSignIn, GoSignOut } from 'react-icons/go';
+import Swal from 'sweetalert2';
 
 
 const Header = () => {
     const { user, signOutUser } = useContext(AuthContext);
     const [menuOpen, setMenuOpen] = useState(false);
     const { darkMode, setDarkMode } = useDarkMode();
+    const navigate = useNavigate();
     const menuRef = useRef();
 
     // User Sign Out:
     const handleSignOut = () => {
-        signOutUser();
+
+        // Sweet Alert :
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to log out!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes!"
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+
+                    signOutUser()
+                        .then(() => {
+                            navigate('/login')
+                            Swal.fire({
+                                title: "Logged out!",
+                                text: "You are successfully logged out.",
+                                icon: "success"
+                            });
+                        })
+                }
+            });
+
     }
 
     // Links style And for active Links style

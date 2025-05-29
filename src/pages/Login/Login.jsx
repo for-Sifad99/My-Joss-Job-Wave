@@ -1,13 +1,15 @@
 import React, { useContext, useState } from "react";
 import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import loginLottie from '../../assets/lotties/login.json';
 import { Helmet } from "react-helmet-async";
 import Lottie from "lottie-react";
 import { AuthContext } from "../../contexts/AuthContexts/AuthContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const { setUser, signInUser } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
 
     const handleLogin = (e) => {
@@ -22,7 +24,27 @@ const Login = () => {
         signInUser(email, password)
             .then(result => {
                 const currentUser = result.user;
-                setUser(currentUser);
+
+                // Sweet Alert :
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: "Logged in successfully!!"
+                });
+                setTimeout(() => {
+                    setUser(currentUser);
+                    navigate('/')
+                }, 3000);
             })
             .catch(error => {
                 console.error(error);
@@ -33,8 +55,8 @@ const Login = () => {
         <>
             {/* Helmet */}
             <Helmet>
-                <title>Join Job Wave - Register</title>
-                <meta name="description" content="Create your Job Wave account and unlock endless job opportunities tailored just for you." />
+                <title>Job Wave - Login</title>
+                <meta name="description" content="Access your Job Wave profile and apply to jobs with ease. Login to explore exciting careers!" />
             </Helmet>
 
 

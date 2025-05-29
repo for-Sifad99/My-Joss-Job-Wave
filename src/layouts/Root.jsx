@@ -10,7 +10,9 @@ const Root = () => {
         <ThemeProvider>
             <section className='dark:bg-[var(--color-bg)]'>
                 <Header />
-                <Outlet />
+                <section className='dark:bg-[var(--color-section-bg)]'>
+                    <Outlet />
+                </section>
                 <Footer />
             </section>
        
