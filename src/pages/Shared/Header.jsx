@@ -49,7 +49,7 @@ const Header = () => {
     // Links style And for active Links style
     const linksStyle = ({ isActive }) =>
         `
-    hover:dark:text-[var(--color-dark-accent)] hover:text-[var(--color-light-accent)] font-medium transition-all duration-300 lg:hover:-translate-y-1 lg:hover:translate-x-0 hover:-translate-x-2
+    hover:dark:text-[var(--color-dark-accent)] hover:text-[var(--color-light-accent)] font-medium transition-all duration-300 lg:hover:-translate-y-[6px] lg:hover:-translate-x-0 hover:-translate-x-2 
     ${isActive ? "text-[var(--color-light-accent)] dark:text-[var(--color-dark-accent)] lg:border-b-2 border-[var(--color-light-accent)] dark:border-[var(--color-dark-accent)]" : 'dark:text-[var(--color-dark-primary)]'}
     `
 
@@ -68,7 +68,7 @@ const Header = () => {
     const links = <>
         <NavLink to="/" onClick={() => setMenuOpen(false)} className={linksStyle}>Home</NavLink>
         <NavLink to="/jobs" onClick={() => setMenuOpen(false)} className={linksStyle}>All Jobs</NavLink>
-        <NavLink to="/add-jobs" onClick={() => setMenuOpen(false)} className={linksStyle}>All Jobs</NavLink>
+        <NavLink to="/add-job" onClick={() => setMenuOpen(false)} className={linksStyle}>Add Job</NavLink>
         <NavLink to="/application/me" onClick={() => setMenuOpen(false)} className={linksStyle}>My Applications</NavLink>
         <NavLink to="/my-jobs" onClick={() => setMenuOpen(false)} className={linksStyle}>My Jobs</NavLink>
         <NavLink to="/contact" onClick={() => setMenuOpen(false)} className={linksStyle}>Contact</NavLink>

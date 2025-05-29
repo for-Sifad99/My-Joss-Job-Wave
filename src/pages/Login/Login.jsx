@@ -60,7 +60,7 @@ const Login = () => {
             </Helmet>
 
 
-            <div className="flex md:flex-row flex-col items-center justify-center py-10 md:px-24">
+            <Section className="flex md:flex-row flex-col items-center justify-center py-10 md:px-24">
 
                 {/* Lottie Animation */}
                 <Lottie animationData={loginLottie} className="max-w-md lg:max-w-md md:w-[440px] sm:max-w-md lg:mb-0 mb-8"></Lottie>
@@ -114,7 +114,7 @@ const Login = () => {
                         Don't have an account? <Link to="/register" className="text-blue-800 dark:text-blue-400 underline animate-pulse">{' '} Create one!</Link>
                     </p>
                 </div>
-            </div>
+            </Section>
         </>
     );
 };

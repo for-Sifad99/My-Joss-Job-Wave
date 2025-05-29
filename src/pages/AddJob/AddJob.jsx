@@ -1,14 +1,14 @@
 import React from 'react';
 
-const AddJobs = () => {
+const AddJob = () => {
     return (
         <>
             {/* Content */}
             <section className='my-10'>
-                <h1 className=' dark:text-[var(--color-dark-primary)]'>All Jobs!!</h1>
+                <h1 className=' dark:text-[var(--color-dark-primary)]'>Add Job!!</h1>
             </section>
         </>
     );
 };
 
-export default AddJobs;
+export default AddJob;

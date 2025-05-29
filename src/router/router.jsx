@@ -7,6 +7,10 @@ import Root from '../layouts/Root';
 import AllJobs from '../pages/AllJobs/AllJobs';
 import Register from '../pages/Register/Register';
 import Login from '../pages/Login/Login';
+import AddJob from '../pages/AddJob/AddJob';
+import Applications from '../pages/Applications/Applications';
+import MyJobs from '../pages/MyJobs/MyJobs';
+import Contact from '../pages/Contact/Contact';
 
 const router = createBrowserRouter([
     {
@@ -17,7 +21,10 @@ const router = createBrowserRouter([
             { path: '/register', Component: Register },
             { path: '/login', Component: Login },
             { path: '/jobs', Component: AllJobs },
-
+            { path: '/add-job', Component: AddJob },
+            { path: '/application/me', Component: Applications },
+            { path: '/my-jobs', Component: MyJobs },
+            { path: '/contact', Component: Contact},
         ]
     },
 ]);

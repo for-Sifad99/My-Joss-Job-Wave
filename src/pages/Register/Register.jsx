@@ -61,7 +61,7 @@ const Register = () => {
             </Helmet>
 
 
-            <div className="flex md:flex-row flex-col-reverse items-center justify-center py-10 md:px-24">
+            <Section className="flex md:flex-row flex-col-reverse items-center justify-center py-10 md:px-24">
                 {/* Form Content */}
                 <div className="bg-white dark:bg-[var(--color-text-copy)] border-2 border-[#ced8ff] dark:border-none shadow-xl rounded-[100px] sm:py-16 py-10 sm:px-10 px-6 w-full max-w-md mx-4">
                     <h2 className="sm:text-3xl text-[28px] font-bold text-center text-[var(--color-light-accent)] dark:text-slate-300 mb-6">Create Account!</h2>
@@ -127,7 +127,7 @@ const Register = () => {
 
                 {/* Lottie Animation */}
                 <Lottie animationData={registerLottie} className="w-full lg:max-w-md md:w-[440px] sm:max-w-md lg:mb-0 mb-8"></Lottie>
-            </div>
+            </Section>
         </>
     );
 };
