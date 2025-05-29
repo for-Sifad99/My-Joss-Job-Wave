@@ -1,16 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { FaUserPlus } from 'react-icons/fa';
 import { FiSearch } from 'react-icons/fi';
-import { IoMdLogIn } from 'react-icons/io';
 import { MdDarkMode, MdLightMode } from 'react-icons/md';
 import { Link, NavLink } from 'react-router';
 import { useDarkMode } from '../../contexts/ThemeContexts/ThemeContext';
+import { AuthContext } from '../../contexts/AuthContexts/AuthContext';
+import { GoSignIn, GoSignOut } from 'react-icons/go';
 
 
 const Header = () => {
+    const { user, signOutUser } = useContext(AuthContext);
     const [menuOpen, setMenuOpen] = useState(false);
     const { darkMode, setDarkMode } = useDarkMode();
     const menuRef = useRef();
+
+    // User Sign Out:
+    const handleSignOut = () => {
+        signOutUser();
+    }
 
     // Links style And for active Links style
     const linksStyle = ({ isActive }) =>
@@ -87,10 +94,18 @@ const Header = () => {
                             </button>
                         </div>
                     </div>
-                    <Link to='/register' className="flex gap-2 items-center text-[var(--color-light-accent)] dark:text-[var(--color-dark-accent)] underline transition-all duration-300 hover:-translate-y-1">Register  <FaUserPlus /></Link>
-                    <Link to='/login'>
-                        <button className="group flex gap-1 items-center px-6 py-3 bg-[#3c65f5] text-white rounded-md  hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 transition-all duration-300 hover:-translate-y-1">Sign In <IoMdLogIn className='transition-all duration-300 group-hover:translate-x-2' /> </button>
-                    </Link>
+
+                    {
+                        user ?
+                            <button onClick={handleSignOut} className="group flex gap-1 items-center px-6 py-3 bg-[#3c65f5] text-white rounded-md  hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 transition-all duration-300 hover:-translate-y-1">Sign Out <GoSignOut className='transition-all duration-300 group-hover:translate-x-2' /> </button>
+                            :
+                            <>
+                                <Link to='/register' className="flex gap-2 items-center text-[var(--color-light-accent)] dark:text-[var(--color-dark-accent)] underline transition-all duration-300 hover:-translate-y-1">Register  <FaUserPlus /></Link>
+                                <Link to='/login'>
+                                    <button className="group flex gap-1 items-center px-6 py-3 bg-[#3c65f5] text-white rounded-md  hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 transition-all duration-300 hover:-translate-y-1">Sign In <GoSignIn className='transition-all duration-300 group-hover:translate-x-2' /> </button>
+                                </Link>
+                            </>
+                    }
                 </div>
 
                 {/* Hamburger - Mobile */}
@@ -166,12 +181,17 @@ const Header = () => {
                             {links}
                         </nav>
                         <div className="md:text-base text-sm flex flex-col gap-3 mt-3 px-6">
-                            <Link to='/register'>
-                                <button className="w-full flex gap-2 items-center justify-center py-3 border border-[#3c65f5]  text-[#05264e] hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 hover:border-indigo-400 hover:text-white transition-all duration-300 hover:-translate-y-1 rounded-md">Register  <FaUserPlus />  </button>
-                            </Link>
-                            <Link to='/login'>
-                                <button className="group w-full flex gap-1 items-center justify-center py-3 border border-[#3c65f5] bg-[#3c65f5] text-white rounded-md hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 hover:border-indigo-400 transition-all duration-300 hover:-translate-y-1">Sign In  <IoMdLogIn className='transition-all duration-300 group-hover:translate-x-2' /> </button>
-                            </Link>
+                            {
+                                user ?
+                                    <button onClick={handleSignOut} className="group w-full flex gap-1 items-center justify-center py-3 border border-[#3c65f5] bg-[#3c65f5] text-white rounded-md hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 hover:border-indigo-400 transition-all duration-300 hover:-translate-y-1">Sign Out <GoSignOut className='transition-all duration-300 group-hover:translate-x-2' /> </button> :
+                                    <>
+                                        <Link to='/register'>
+                                            <button className="w-full flex gap-2 items-center justify-center py-3 border border-[#3c65f5] text-[var(--color-light-accent)] dark:text-[var(--color-dark-primary)] hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 hover:border-indigo-400 hover:text-white transition-all duration-300 hover:-translate-y-1 rounded-md">Register  <FaUserPlus />  </button>
+                                        </Link>
+                                        <Link to='/login'>
+                                            <button className="group w-full flex gap-1 items-center justify-center py-3 border border-[#3c65f5] bg-[#3c65f5] text-white rounded-md hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 hover:border-indigo-400 transition-all duration-300 hover:-translate-y-1">Sign In  <GoSignIn className='transition-all duration-300 group-hover:translate-x-2' /> </button>
+                                        </Link></>
+                            }
                         </div>
                     </div>
                 </div>
