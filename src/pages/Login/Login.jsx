@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { FiUser, FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
+import React, { useContext, useState } from "react";
+import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
 import { Link } from "react-router";
 import loginLottie from '../../assets/lotties/login.json';
 import { Helmet } from "react-helmet-async";
 import Lottie from "lottie-react";
+import { AuthContext } from "../../contexts/AuthContexts/AuthContext";
 
 const Login = () => {
+    const { signInUser } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
 
     const handleLogin = (e) => {
@@ -16,7 +18,14 @@ const Login = () => {
         const password = form.password.value;
         console.log(email, password);
 
-        //? SignIn User
+        //? SignIn User:
+        signInUser(email, password)
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(error => {
+                console.error(error);
+            })
     };
 
     return (
