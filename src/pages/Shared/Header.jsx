@@ -17,8 +17,7 @@ const Header = () => {
     const menuRef = useRef();
 
     // User Sign Out:
-    const handleSignOut = () => {
-
+    const handleSignOut = async () => {
         // Sweet Alert :
         Swal.fire({
             title: "Are you sure?",
@@ -27,24 +26,19 @@ const Header = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes!"
-        })
-            .then((result) => {
-                if (result.isConfirmed) {
-
-                    signOutUser()
-                        .then(() => {
-                            navigate('/login')
-                            Swal.fire({
-                                title: "Logged out!",
-                                text: "You are successfully logged out.",
-                                icon: "success"
-                            });
-                        })
-                }
-            });
-
-    }
+            confirmButtonText: "Logout!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await signOutUser();
+                navigate('/login')
+                Swal.fire({
+                    title: "Logged out!",
+                    text: "You are successfully logged out.",
+                    icon: "success"
+                });
+            }
+        });
+    };
 
     // Links style And for active Links style
     const linksStyle = ({ isActive }) =>
@@ -210,12 +204,16 @@ const Header = () => {
                         <div className="md:text-base text-sm flex flex-col gap-3 mt-3 px-6">
                             {
                                 user ?
-                                    <button onClick={handleSignOut} className="group w-full flex gap-1 items-center justify-center py-3 border border-[#3c65f5] bg-[#3c65f5] text-white rounded-md hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 hover:border-indigo-400 transition-all duration-300 hover:-translate-y-1">Sign Out <GoSignOut className='transition-all duration-300 group-hover:translate-x-2' /> </button> :
+                                    <button onClick={() => {
+                                        handleSignOut();
+                                        setMenuOpen(false);
+                                    }}
+                                        className="group w-full flex gap-1 items-center justify-center py-3 border border-[#3c65f5] bg-[#3c65f5] text-white rounded-md hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 hover:border-indigo-400 transition-all duration-300 hover:-translate-y-1">Sign Out <GoSignOut className='transition-all duration-300 group-hover:translate-x-2' /> </button> :
                                     <>
-                                        <Link to='/register'>
+                                        <Link to='/register' onClick={() => setMenuOpen(false)} >
                                             <button className="w-full flex gap-2 items-center justify-center py-3 border border-[#3c65f5] text-[var(--color-light-accent)] dark:text-[var(--color-dark-primary)] hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 hover:border-indigo-400 hover:text-white transition-all duration-300 hover:-translate-y-1 rounded-md">Register  <FaUserPlus />  </button>
                                         </Link>
-                                        <Link to='/login'>
+                                        <Link to='/login' onClick={() => setMenuOpen(false)} >
                                             <button className="group w-full flex gap-1 items-center justify-center py-3 border border-[#3c65f5] bg-[#3c65f5] text-white rounded-md hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 hover:border-indigo-400 transition-all duration-300 hover:-translate-y-1">Sign In  <GoSignIn className='transition-all duration-300 group-hover:translate-x-2' /> </button>
                                         </Link></>
                             }

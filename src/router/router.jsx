@@ -11,6 +11,7 @@ import AddJob from '../pages/AddJob/AddJob';
 import Applications from '../pages/Applications/Applications';
 import MyJobs from '../pages/MyJobs/MyJobs';
 import Contact from '../pages/Contact/Contact';
+import ErrorPage from '../pages/ErrorPage/ErrorPage';
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
             { path: '/contact', Component: Contact},
         ]
     },
+    { path: '/*', Component: ErrorPage },
 ]);
 
 export default router;
