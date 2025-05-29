@@ -4,7 +4,7 @@ import { FiSearch } from 'react-icons/fi';
 import { IoMdLogIn } from 'react-icons/io';
 import { MdDarkMode, MdLightMode } from 'react-icons/md';
 import { Link, NavLink } from 'react-router';
-import { useDarkMode } from '../../contexts/ThemeContext';
+import { useDarkMode } from '../../contexts/ThemeContexts/ThemeContext';
 
 
 const Header = () => {

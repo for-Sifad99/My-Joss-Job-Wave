@@ -8,8 +8,15 @@ import Lottie from "lottie-react";
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleRegister = (e) => {
         e.preventDefault();
+
+        const form = e.target;
+        const photo = form.photo.value;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        console.log(photo, email, password);
     };
 
     return (
@@ -25,16 +32,16 @@ const Register = () => {
                 {/* Form Content */}
                 <div className="bg-white dark:bg-[var(--color-text-copy)] border-2 border-[#ced8ff] dark:border-none shadow-xl rounded-[100px] sm:py-16 py-10 sm:px-10 px-6 w-full max-w-md mx-4">
                     <h2 className="sm:text-3xl text-[28px] font-bold text-center text-[var(--color-light-accent)] dark:text-slate-300 mb-6">Create Account!</h2>
-                    <form onSubmit={handleSubmit} className="space-y-5">
+                    <form onSubmit={handleRegister} className="space-y-5">
                         <div>
-                            <label className="text-base block mb-1 font-bold text-[var(--color-light-accent)] dark:text-[var(--color-dark-accent)]">Full Name</label>
+                            <label className="text-base block mb-1 font-bold text-[var(--color-light-accent)] dark:text-[var(--color-dark-accent)]">Photo Url</label>
                             <div className="relative">
                                 <FiUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                                 <input
                                     type="text"
-                                    name="name"
+                                    name="photo"
                                     required
-                                    placeholder="Your Name"
+                                    placeholder="Photo Url"
                                     className="text-sm w-full pl-10 pr-3 py-2 rounded-2xl border-2 border-[var(--color-light-accent)] dark:[var(--color-dark-accent)] focus:outline-none focus:border-3 dark:bg-[#23272f] dark:text-slate-300"
                                 />
                             </div>
