@@ -6,6 +6,7 @@ import {
 import Root from '../layouts/Root';
 import AllJobs from '../pages/AllJobs/AllJobs';
 import Register from '../pages/Register/Register';
+import Login from '../pages/Login/Login';
 
 const router = createBrowserRouter([
     {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
         children: [
             {index: true, Component: Home},
             { path: '/register', Component: Register },
+            { path: '/login', Component: Login },
             {path : '/jobs', Component: AllJobs},
 
         ]
