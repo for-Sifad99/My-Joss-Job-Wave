@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FiUser, FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
 import { Link } from "react-router";
 import registerLottie from '../../assets/lotties/register.json';
 import { Helmet } from "react-helmet-async";
 import Lottie from "lottie-react";
+import { AuthContext } from "../../contexts/AuthContexts/AuthContext";
 
 const Register = () => {
+    const { createUser } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
 
     const handleRegister = (e) => {
@@ -15,13 +17,21 @@ const Register = () => {
         const photo = form.photo.value;
         const email = form.email.value;
         const password = form.password.value;
-
         console.log(photo, email, password);
+
+        //? Create User:
+        createUser(email, password)
+            .then((result) => {
+                console.log(result.user)
+            })
+            .catch((error) => {
+                console.error(error);
+            })
     };
 
     return (
         <>
-        {/* Helmet */}
+            {/* Helmet */}
             <Helmet>
                 <title>Join Job Wave - Register</title>
                 <meta name="description" content="Create your Job Wave account and unlock endless job opportunities tailored just for you." />
