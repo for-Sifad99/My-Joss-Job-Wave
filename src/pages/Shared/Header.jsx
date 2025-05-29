@@ -43,7 +43,7 @@ const Header = () => {
     // Links style And for active Links style
     const linksStyle = ({ isActive }) =>
         `
-    hover:dark:text-[var(--color-dark-accent)] hover:text-[var(--color-light-accent)] font-medium transition-all duration-300 lg:hover:-translate-y-[6px] lg:hover:-translate-x-0 hover:-translate-x-2 
+    hover:dark:text-[var(--color-dark-accent)] hover:text-[var(--color-light-accent)] font-medium transition-all duration-300 lg:hover:-translate-y-[6px] lg:hover:translate-x-0 hover:translate-x-2 
     ${isActive ? "text-[var(--color-light-accent)] dark:text-[var(--color-dark-accent)] lg:border-b-2 border-[var(--color-light-accent)] dark:border-[var(--color-dark-accent)]" : 'dark:text-[var(--color-dark-primary)]'}
     `
 

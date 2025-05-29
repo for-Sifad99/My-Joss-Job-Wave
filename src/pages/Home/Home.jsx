@@ -12,7 +12,7 @@ const Home = () => {
 
 
             {/* Content */}
-            <section className='my-10'>
+            <section className='my-10 h-[500px]'>
                 <h1 className=' dark:text-[var(--color-dark-primary)]'>Home!!</h1>
             </section>
         </>
