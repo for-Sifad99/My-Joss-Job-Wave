@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const AddJobs = () => {
+const AllJobs = () => {
     return (
         <>
         {/* Helmet */}
@@ -11,11 +11,11 @@ const AddJobs = () => {
             </Helmet>
 
             {/* Content */}
-            <section className='my-10'>
+            <section className='my-10 h-[500px]'>
                 <h1 className=' dark:text-[var(--color-dark-primary)]'>All Jobs!!</h1>
             </section>
         </>
     );
 };
 
-export default AddJobs;
+export default AllJobs;

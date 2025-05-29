@@ -4,9 +4,9 @@ import {
     createBrowserRouter,
 } from "react-router";
 import Root from '../layouts/Root';
-import AllJobs from '../pages/AllJobs/AllJobs';
 import Register from '../pages/Register/Register';
 import Login from '../pages/Login/Login';
+import AllJobs from '../pages/AllJobs/AllJobs';
 import AddJob from '../pages/AddJob/AddJob';
 import Applications from '../pages/Applications/Applications';
 import MyJobs from '../pages/MyJobs/MyJobs';
