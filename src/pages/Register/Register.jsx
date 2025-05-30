@@ -15,9 +15,11 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState();
 
+
     const handleRegister = async (e) => {
         e.preventDefault();
 
+        // Form data:
         const form = e.target;
         const photo = form.photo.value;
         const email = form.email.value;
@@ -38,10 +40,10 @@ const Register = () => {
         if (!/[0-9]/.test(password)) return setError("Include at least one number!");
         if (!/[!@#$%^&*]/.test(password)) return setError("Include at least one special character!");
 
-
         //? Create User:
         try {
             await createUser(email, password);
+            
             // Send Email Verification
             await emailVerification();
 
@@ -57,7 +59,6 @@ const Register = () => {
                     toast.onmouseleave = Swal.resumeTimer;
                 }
             });
-
             Toast.fire({
                 icon: "success",
                 title: "Account created! Please check your email to verify."
@@ -69,6 +70,7 @@ const Register = () => {
             }, 3000);
         } 
         catch (error) {
+            // Error handling :
             if (error.code === 'auth/email-already-in-use') {
                 toast.error('This email is already in use. Please use a different one.');
             } else if (error.code === 'auth/invalid-email') {
@@ -88,9 +90,7 @@ const Register = () => {
         //? Create User with Google:
         try {
             await createGoogleUser();
-            // Send Email Verification
-            await emailVerification();
-
+            
             // Sweet Alert :
             const Toast = Swal.mixin({
                 toast: true,
@@ -112,8 +112,9 @@ const Register = () => {
                 await signOutUser();
                 navigate('/login')
             }, 3000);
-        } catch (error) {
-            // Firebase Google Sign-In error handling:
+        } 
+        catch (error) {
+            // Firebase Google Sign-In error handling :
             if (error.code === 'auth/popup-closed-by-user') {
                 toast.error('You closed the popup before completing the sign-in.');
             } else if (error.code === 'auth/cancelled-popup-request') {

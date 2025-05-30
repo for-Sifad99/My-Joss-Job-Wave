@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext'
 import { auth } from '../../../firebase/firebase.config'
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 
 const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
     const createUser = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
-    }
+    };
 
     //? Create User with Goggle:
     const googleProvider = new GoogleAuthProvider();
@@ -19,48 +19,56 @@ const AuthProvider = ({ children }) => {
     const createGoogleUser = () => {
         setLoading(true);
         return signInWithPopup(auth, googleProvider);
-    }
+    };
 
     //? Email verification:
     const emailVerification = () => {
         setLoading(true);
         return sendEmailVerification(auth.currentUser);
-    }
+    };
 
-    //? SignIn User:
-    const signInUser = (email, password) => {
+    //? Reset Password:
+    const forgotPassword = (email) => {
         setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
-    }
+    return sendPasswordResetEmail(auth, email);
+    };
 
-    //? SignOut User:
-    const signOutUser = () => {
-        setLoading(true);
-        return signOut(auth);
-    }
 
-    //? Observer:
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser) => {
-            setLoading(false);
-            setUser(currentUser);
-        })
-    }, []);
+//? SignIn User:
+const signInUser = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+};
 
-    const authInfo = {
-        loading,
-        user,
-        setUser,
-        createUser,
-        createGoogleUser,
-        emailVerification,
-        signInUser,
-        signOutUser
-    }
+//? SignOut User:
+const signOutUser = () => {
+    setLoading(true);
+    return signOut(auth);
+};
 
-    return <AuthContext value={authInfo}>
-        {children}
-    </AuthContext>
+//? Observer:
+useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+        setLoading(false);
+        setUser(currentUser);
+    })
+}, []);
+
+const authInfo = {
+    loading,
+    user,
+    setUser,
+    createUser,
+    createGoogleUser,
+    emailVerification,
+    signInUser,
+    forgotPassword,
+    signOutUser
+};
+
+return <AuthContext value={authInfo}>
+    {children}
+</AuthContext>
 };
 
 export default AuthProvider;

@@ -1,22 +1,26 @@
 import React, { useContext, useState } from "react";
 import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
+import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
 import loginLottie from '../../assets/lotties/login.json';
 import { Helmet } from "react-helmet-async";
 import Lottie from "lottie-react";
 import { AuthContext } from "../../contexts/AuthContexts/AuthContext";
 import Swal from "sweetalert2";
-import { toast } from "react-toastify";
-// import { toast } from "react-toastify";
+import { useRef } from "react";
+
 
 const Login = () => {
-    const { setUser, signInUser } = useContext(AuthContext);
+    const { setUser, signInUser, createGoogleUser, forgotPassword } = useContext(AuthContext);
     const navigate = useNavigate();
+    const emailRef = useRef();
     const [showPassword, setShowPassword] = useState(false);
+
 
     const handleLogin = async (e) => {
         e.preventDefault();
 
+        // Form data:
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
@@ -27,7 +31,7 @@ const Login = () => {
             const user = await signInUser(email, password);
             const currentUser = user;
 
-            // Email verify:
+            // Email verify :
             if (!currentUser.user.emailVerified) {
 
                 // Sweet Alert :
@@ -60,24 +64,102 @@ const Login = () => {
                 }, 3000);
             }
         }
-        catch (error) {
-            // Custom error messages
-            if (error.code === 'auth/invalid-credential') {
-                toast.error("Invalid login method! Please continue with Google.");
-            } else if (error.code === 'auth/invalid-email') {
-                toast.error("Invalid email format. Please enter a valid email.");
-            } else if (error.code === 'auth/user-not-found') {
-                toast.error("No account found with this email.");
-            } else if (error.code === 'auth/wrong-password') {
-                toast.error("Incorrect password. Please try again.");
-            } else if (error.code === 'auth/too-many-requests') {
-                toast.error("Too many failed attempts. Please wait a moment before trying again.");
-            } else if (error.code === 'auth/network-request-failed') {
-                toast.error("Network error. Please check your internet connection.");
-            }
-        }
+        catch {
+            // Error handling with sweet alert :
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "Something wrong! Please continue with google or enter a valid email and password."
+            });
+        };
     };
 
+
+    const handleGoogleLogin = async (e) => {
+        e.preventDefault();
+
+        //? Login User with Google:
+        const user = await createGoogleUser();
+        const currentUser = user;
+
+        // Sweet Alert :
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        Toast.fire({
+            icon: "success",
+            title: "Logged in successfully!!"
+        });
+
+        setTimeout(() => {
+            setUser(currentUser);
+            navigate('/')
+        }, 3000);
+    };
+
+
+    const handleForgotPassword = async () => {
+        const email = emailRef.current.value;
+
+        // Empty email check :
+        if (!email) {
+            // Sweet Alert :
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "warning",
+                title: "Please! enter your email first."
+            });
+        }
+        else {
+            //? Reset Password:
+            await forgotPassword(email);
+
+            // Sweet Alert :
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "Done! Please check your email."
+            });
+        }
+    };
 
     return (
         <>
@@ -96,12 +178,24 @@ const Login = () => {
                 {/* Form Content */}
                 <div className="bg-white dark:bg-[var(--color-text-copy)] border-2 border-[#ced8ff] dark:border-none shadow-xl rounded-[100px] sm:py-16 py-10 sm:px-10 px-6 w-full max-w-md mx-4">
                     <h2 className="sm:text-3xl text-[28px] font-bold text-center text-[var(--color-light-accent)] dark:text-slate-300 mb-6">Login Now!</h2>
+
+                    {/* Continue button */}
+                    <button onClick={handleGoogleLogin} className="group flex items-center justify-center gap-1 w-full py-[6px] px-6 border border-gray-300 bg-slate-300 rounded-2xl transition-all duration-200 text-base font-semibold cursor-pointer">
+                        Continue with <FaGoogle className="text-blue-700 font-bold group-hover:rotate-360 duration-500" />
+                    </button>
+
+                    {/* Divider */}
+                    <div className="divider text-gray-500 dark:text-gray-400 font-bold before:bg-gray-400 after:bg-gray-400">OR</div>
+
                     <form onSubmit={handleLogin} className="space-y-5">
+
+                        {/* Email */}
                         <div>
                             <label className="text-base block mb-1 font-bold text-[var(--color-light-accent)] dark:text-[var(--color-dark-accent)]">Email</label>
                             <div className="relative">
                                 <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                                 <input
+                                    ref={emailRef}
                                     type="email"
                                     name="email"
                                     required
@@ -110,6 +204,8 @@ const Login = () => {
                                 />
                             </div>
                         </div>
+
+                        {/* Password */}
                         <div>
                             <label className="text-base block mb-1 font-bold text-[var(--color-light-accent)] dark:text-[var(--color-dark-accent)]">Password</label>
                             <div className="relative">
@@ -131,9 +227,14 @@ const Login = () => {
                                 </button>
                             </div>
                         </div>
+
+                        {/* Forgot password */}
+                        <span onClick={handleForgotPassword} className=" text-gray-600 dark:text-gray-300 sm:text-base text-sm cursor-pointer hover:underline">Forgot password?</span>
+
+                        {/* Submit button */}
                         <button
                             type="submit"
-                            className="text-sm w-full py-2 bg-[var(--color-light-accent)] hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all duration-200"
+                            className="mt-2 text-sm w-full py-2 bg-[var(--color-light-accent)] hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all duration-200"
                         >
                             Login
                         </button>
