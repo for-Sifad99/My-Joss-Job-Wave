@@ -13,12 +13,12 @@ const Footer = () => {
     };
 
     return (
-        <footer className="bg-base-200 dark:bg-[var(--color-bg)] md:text-sm dark:text-[var(--color-dark-primary)]">
+        <footer className="bg-base-200 dark:bg-[var(--color-bg)] md:text-sm text-[var(--color-text-primary)]  dark:text-[var(--color-dark-primary)]">
             <div className="max-w-7xl mx-auto lg:px-4 md:px-24 sm:px-10 px-4 md:py-10 py-6 lg:flex grid md:grid-cols-3 sm:grid-cols-2 grid-col-1 gap-8 justify-between">
                 {/* Logo & Description */}
                 <div className="space-y-2 max-w-[240px]">
                     <div className="flex">
-                        <img src="/public/logo.png" alt="logo" className="xl:w-9 lg:w-7 md:w-8 sm:w-9 w-10" />
+                        <img src="/public/logo.png" alt="logo" className="xl:w-10 xl:h-9 md:h-8 md:w-9 sm:w-10 sm:h-9 w-12 h-10" />
                         <h2 className="xl:text-3xl md:text-2xl sm:text-3xl text-4xl font-bold text-[var(--color-light-accent)] dark:text-[var(--color-dark-accent)]">Job Wave</h2>
                     </div>
                     <p className="dark:text-gray-300 xl:text-sm md:text-xs text-sm">

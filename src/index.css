@@ -17,11 +17,11 @@
 
 /* Website reusable colors */
 @theme {
-  --color-primary: #a0abb8;
+  --color-text-primary: #05264e;
   --color-text-copy: #343a46;
   --color-dark-primary: #e5e7eb;
   --color-dark-accent: #93abf9;
-  --color-light-accent: #3c65f5;
+  --color-light-accent: #3c65f9;
   --color-bg: #1c2027;
   --color-section-bg: #21252c;
 }

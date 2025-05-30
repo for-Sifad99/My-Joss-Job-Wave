@@ -141,13 +141,13 @@ const Register = () => {
             </Helmet>
 
 
-            <section className="flex md:flex-row flex-col-reverse items-center justify-center py-10 md:px-24">
+            <section className="flex md:flex-row flex-col-reverse items-center text-[var(--color-text-primary)] justify-center py-10 md:px-24">
                 {/* Form Content */}
                 <div className="bg-white dark:bg-[var(--color-text-copy)] border-2 border-[#ced8ff] dark:border-none shadow-xl rounded-[100px] sm:py-16 py-10 sm:px-10 px-6 w-full max-w-md mx-4">
-                    <h2 className="sm:text-3xl text-[28px] font-bold text-center text-[var(--color-light-accent)] dark:text-slate-300 mb-6">Create Account!</h2>
+                    <h2 className="sm:text-3xl text-[28px] font-bold text-center text-[var(--color-light-accent)] dark:text-white mb-6">Create Account!</h2>
 
                     {/* Continue button */}
-                    <button onClick={handleGoogleUser} className="group flex items-center justify-center gap-1 w-full py-[6px] px-6 border border-gray-300 bg-slate-300 rounded-2xl transition-all duration-200 text-base font-semibold cursor-pointer">
+                    <button onClick={handleGoogleUser} className="group flex items-center justify-center gap-1 w-full py-[6px] px-6 border border-gray-300 bg-slate-300 dark:bg-slate-200 rounded-2xl transition-all duration-200 text-base font-semibold cursor-pointer">
                         Continue with <FaGoogle className="text-blue-700 font-bold group-hover:rotate-360 duration-500" />
                     </button>
 
