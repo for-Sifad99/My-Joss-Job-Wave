@@ -18,6 +18,7 @@ const Header = () => {
 
     // User Sign Out:
     const handleSignOut = async () => {
+
         // Sweet Alert :
         Swal.fire({
             title: "Are you sure?",
@@ -26,11 +27,13 @@ const Header = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Logout!"
-        }).then(async (result) => {
+            confirmButtonText: "Logout"
+        })
+        .then(async (result) => {
             if (result.isConfirmed) {
                 await signOutUser();
-                navigate('/login')
+                navigate('/login');
+
                 Swal.fire({
                     title: "Logged out!",
                     text: "You are successfully logged out.",

@@ -26,9 +26,15 @@ const Footer = () => {
                         to discover and connect with designers and job worldwide.
                     </p>
                     <div className="flex space-x-4 mt-4 text-white">
-                        <FaFacebookF size={30} className="cursor-pointer p-[6px] rounded-full bg-blue-700 hover:bg-blue-500 transition-all duration-300 hover:-translate-y-1" />
-                        <FaTwitter size={30} className="cursor-pointer p-[6px] rounded-full bg-blue-700 hover:bg-blue-500 transition-all duration-300 hover:-translate-y-1" />
-                        <FaLinkedinIn size={30} className="cursor-pointer p-[6px] rounded-full bg-blue-700 hover:bg-blue-500 transition-all duration-300 hover:-translate-y-1" />
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                            <FaFacebookF size={30} className="cursor-pointer p-[6px] rounded-full bg-blue-700 hover:bg-blue-500 transition-all duration-300 hover:-translate-y-1" />
+                        </a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                            <FaTwitter size={30} className="cursor-pointer p-[6px] rounded-full bg-blue-700 hover:bg-blue-500 transition-all duration-300 hover:-translate-y-1" />
+                        </a>
+                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+                            <FaLinkedinIn size={30} className="cursor-pointer p-[6px] rounded-full bg-blue-700 hover:bg-blue-500 transition-all duration-300 hover:-translate-y-1" />
+                        </a>
                     </div>
                 </div>
 
@@ -81,14 +87,25 @@ const Footer = () => {
                     <h3 className="xl:text-lg lg:text-base sm:text-lg text-2xl font-bold mb-2">Download App</h3>
                     <p className="mb-4 dark:text-gray-300 max-w-[200px] xl:text-sm lg:text-xs text-sm">Download our Apps and get extra 15% Discount on your first Order…!</p>
                     <div className="flex space-x-2">
-                        <a href="#" className="md:w-fit flex items-center px-4 py-2 bg-black text-white rounded-md text-xs">
+                        <a
+                            href="https://www.apple.com/app-store/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="md:w-fit flex items-center px-4 py-2 bg-black text-white rounded-md text-xs"
+                        >
                             <FaApple size={22} />
                             <div className="flex flex-col ml-1">
                                 <p className="text-[7px]">Download on the</p>
                                 <h2>App Store</h2>
                             </div>
                         </a>
-                        <a href="#" className="md:w-fit flex items-center px-4 py-2 bg-blue-600 text-white rounded-md text-[10px]">
+
+                        <a
+                            href="https://play.google.com/store/apps"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="md:w-fit flex items-center px-4 py-2 bg-blue-600 text-white rounded-md text-[10px]"
+                        >
                             <FaGooglePlay size={22} />
                             <div className="flex flex-col ml-1">
                                 <p className="text-[7px]">Get it on</p>

@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { FaGoogle } from "react-icons/fa";
 
 const Register = () => {
-    const { createUser, createGoogleUser, signOutUser } = useContext(AuthContext);
+    const { createUser, createGoogleUser, emailVerification, signOutUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState();
@@ -42,29 +42,33 @@ const Register = () => {
         //? Create User:
         try {
             await createUser(email, password);
+            // Send Email Verification
+            await emailVerification();
 
-            // Sweet Alert :
+            // Sweet Alert:
             const Toast = Swal.mixin({
                 toast: true,
                 position: "top-end",
                 showConfirmButton: false,
-                timer: 3000,
+                timer: 4000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                     toast.onmouseenter = Swal.stopTimer;
                     toast.onmouseleave = Swal.resumeTimer;
                 }
             });
+
             Toast.fire({
                 icon: "success",
-                title: "Account created successfully!!"
+                title: "Account created! Please check your email to verify."
             });
 
             setTimeout(async () => {
                 await signOutUser();
                 navigate('/login')
             }, 3000);
-        } catch (error) {
+        } 
+        catch (error) {
             if (error.code === 'auth/email-already-in-use') {
                 toast.error('This email is already in use. Please use a different one.');
             } else if (error.code === 'auth/invalid-email') {
@@ -84,6 +88,8 @@ const Register = () => {
         //? Create User with Google:
         try {
             await createGoogleUser();
+            // Send Email Verification
+            await emailVerification();
 
             // Sweet Alert :
             const Toast = Swal.mixin({
@@ -99,7 +105,7 @@ const Register = () => {
             });
             Toast.fire({
                 icon: "success",
-                title: "Account created successfully!!"
+                title: "Account created! Please check your email to verify."
             });
 
             setTimeout(async () => {
@@ -204,7 +210,7 @@ const Register = () => {
                         {/* Error showing */}
                         {
                             error &&
-                            <p className="text-orange-500 dark:text-orange-400 lg:text-sm md:text-xs sm:text-sm text-xs">⚠️ {error}</p>
+                            <p className="text-orange-5npm run00 dark:text-orange-400 lg:text-sm md:text-xs sm:text-sm text-xs">⚠️ {error}</p>
                         }
 
                         {/* Checkbox */}
