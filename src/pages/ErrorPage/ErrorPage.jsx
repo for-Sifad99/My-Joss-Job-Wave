@@ -12,7 +12,7 @@ const ErrorPage = () => {
 
 
             {/* Content */}
-            <section className='my-10'>
+            <section className='py-10'>
                 <h1 className=' dark:text-[var(--color-dark-primary)]'>Error Page!!</h1>
             </section>
         </>

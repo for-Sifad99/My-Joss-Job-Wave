@@ -7,11 +7,13 @@ import Lottie from "lottie-react";
 import { AuthContext } from "../../contexts/AuthContexts/AuthContext";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import { FaGoogle } from "react-icons/fa";
 
 const Register = () => {
-    const { createUser, signOutUser } = useContext(AuthContext);
+    const { createUser, createGoogleUser, signOutUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState();
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -20,7 +22,22 @@ const Register = () => {
         const photo = form.photo.value;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(photo, email, password);
+        const checkbox = form.checkbox.checked;
+        console.log(photo, email, password, checkbox);
+
+        // Checkbox empty validation
+        if (!checkbox) {
+            toast.warning("Please Accept terms! 🛑");
+            return;
+        }
+
+        // password validation
+        if (password.length < 6) return setError("Password must be at least 6 characters!");
+        if (!/[A-Z]/.test(password)) return setError("Include at least one uppercase letter!");
+        if (!/[a-z]/.test(password)) return setError("Include at least one lowercase letter!");
+        if (!/[0-9]/.test(password)) return setError("Include at least one number!");
+        if (!/[!@#$%^&*]/.test(password)) return setError("Include at least one special character!");
+
 
         //? Create User:
         try {
@@ -47,10 +64,65 @@ const Register = () => {
                 await signOutUser();
                 navigate('/login')
             }, 3000);
-        } catch {
-            toast.error('Please! try again. Something Wrong!!')
-        }
-    }
+        } catch (error) {
+            if (error.code === 'auth/email-already-in-use') {
+                toast.error('This email is already in use. Please use a different one.');
+            } else if (error.code === 'auth/invalid-email') {
+                toast.error('Invalid email address. Please enter a valid email.');
+            } else if (error.code === 'auth/weak-password') {
+                toast.error('Password should be at least 6 characters long.');
+            } else {
+                toast.error('Something went wrong. Please try again later!');
+            };
+        };
+    };
+
+
+    const handleGoogleUser = async (e) => {
+        e.preventDefault();
+
+        //? Create User with Google:
+        try {
+            await createGoogleUser();
+
+            // Sweet Alert :
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "Account created successfully!!"
+            });
+
+            setTimeout(async () => {
+                await signOutUser();
+                navigate('/login')
+            }, 3000);
+        } catch (error) {
+            // Firebase Google Sign-In error handling:
+            if (error.code === 'auth/popup-closed-by-user') {
+                toast.error('You closed the popup before completing the sign-in.');
+            } else if (error.code === 'auth/cancelled-popup-request') {
+                toast.error('Multiple popups are open. Please try again.');
+            } else if (error.code === 'auth/popup-blocked') {
+                toast.error('Popup blocked by your browser. Please enable popups.');
+            } else if (error.code === 'auth/account-exists-with-different-credential') {
+                toast.error('Account exists with different login method. Try logging in with that.');
+            } else if (error.code === 'auth/network-request-failed') {
+                toast.error('Check your internet connection and try again.');
+            } else {
+                toast.error('Something went wrong. Please try again!');
+            };
+        };
+    };
 
 
     return (
@@ -66,7 +138,17 @@ const Register = () => {
                 {/* Form Content */}
                 <div className="bg-white dark:bg-[var(--color-text-copy)] border-2 border-[#ced8ff] dark:border-none shadow-xl rounded-[100px] sm:py-16 py-10 sm:px-10 px-6 w-full max-w-md mx-4">
                     <h2 className="sm:text-3xl text-[28px] font-bold text-center text-[var(--color-light-accent)] dark:text-slate-300 mb-6">Create Account!</h2>
-                    <form onSubmit={handleRegister} className="space-y-5">
+
+                    {/* Continue button */}
+                    <button onClick={handleGoogleUser} className="group flex items-center justify-center gap-1 w-full py-[6px] px-6 border border-gray-300 bg-slate-300 rounded-2xl transition-all duration-200 text-base font-semibold cursor-pointer">
+                        Continue with <FaGoogle className="text-blue-700 font-bold group-hover:rotate-360 duration-500" />
+                    </button>
+
+                    {/* Divider */}
+                    <div className="divider text-gray-500 dark:text-gray-400 font-bold before:bg-gray-400 after:bg-gray-400">OR</div>
+                    <form onSubmit={handleRegister} className="space-y-4">
+
+                        {/* Photo Url */}
                         <div>
                             <label className="text-base block mb-1 font-bold text-[var(--color-light-accent)] dark:text-[var(--color-dark-accent)]">Photo Url</label>
                             <div className="relative">
@@ -80,6 +162,8 @@ const Register = () => {
                                 />
                             </div>
                         </div>
+
+                        {/* Email */}
                         <div>
                             <label className="text-base block mb-1 font-bold text-[var(--color-light-accent)] dark:text-[var(--color-dark-accent)]">Email</label>
                             <div className="relative">
@@ -93,6 +177,8 @@ const Register = () => {
                                 />
                             </div>
                         </div>
+
+                        {/* Password */}
                         <div>
                             <label className="text-base block mb-1 font-bold text-[var(--color-light-accent)] dark:text-[var(--color-dark-accent)]">Password</label>
                             <div className="relative">
@@ -114,9 +200,23 @@ const Register = () => {
                                 </button>
                             </div>
                         </div>
+
+                        {/* Error showing */}
+                        {
+                            error &&
+                            <p className="text-orange-500 dark:text-orange-400 lg:text-sm md:text-xs sm:text-sm text-xs">⚠️ {error}</p>
+                        }
+
+                        {/* Checkbox */}
+                        <div className="flex gap-2 items-center text-gray-600 dark:text-gray-300 lg:text-base md:text-sm sm:text-base text-sm">
+                            <input type="checkbox" name="checkbox" className="checkbox checkbox-sm dark:text-gray-300 dark:border-gray-500" />
+                            <p className="">Accept terms and conditions.</p>
+                        </div>
+
+                        {/* Submit button */}
                         <button
                             type="submit"
-                            className="text-sm w-full py-2 bg-[var(--color-light-accent)] hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all duration-200"
+                            className="text-sm w-full py-2 bg-[var(--color-light-accent)] hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all duration-200 cursor-pointer"
                         >
                             Register
                         </button>

@@ -11,7 +11,7 @@ const AllJobs = () => {
             </Helmet>
 
             {/* Content */}
-            <section className='my-10 h-[500px]'>
+            <section className='py-10'>
                 <h1 className=' dark:text-[var(--color-dark-primary)]'>All Jobs!!</h1>
             </section>
         </>
