@@ -180,7 +180,7 @@ const Login = () => {
                     <h2 className="sm:text-3xl text-[28px] font-bold text-center text-[var(--color-light-accent)] dark:text-white mb-6">Login Now!</h2>
 
                     {/* Continue button */}
-                    <button onClick={handleGoogleLogin} className="group flex items-center justify-center gap-1 w-full py-[6px] px-6 border border-gray-300 bg-slate-300 dark:bg-slate-200 rounded-2xl transition-all duration-200 text-base font-semibold cursor-pointer">
+                    <button onClick={handleGoogleLogin} className="group flex items-center justify-center gap-1 w-full py-[6px] px-6 border border-gray-300 bg-slate-100 dark:bg-slate-200 rounded-2xl transition-all duration-200 text-base font-semibold cursor-pointer">
                         Continue with <FaGoogle className="text-blue-700 font-bold group-hover:rotate-360 duration-500" />
                     </button>
 

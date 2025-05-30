@@ -40,12 +40,12 @@ const Header = () => {
         <NavLink to="/jobs" onClick={() => setMenuOpen(false)} className={linksStyle}>All Jobs</NavLink>
         <NavLink to="/add-job" onClick={() => setMenuOpen(false)} className={linksStyle}>Add Job</NavLink>
         <NavLink to="/application/me" onClick={() => setMenuOpen(false)} className={linksStyle}>My Applications</NavLink>
-        <NavLink to="/my-jobs" onClick={() => setMenuOpen(false)} className={linksStyle}>My Jobs</NavLink>
+        <NavLink to="/my-jobs" onClick={() => setMenuOpen(false)} className={linksStyle}>My Job Posts</NavLink>
         <NavLink to="/contact" onClick={() => setMenuOpen(false)} className={linksStyle}>Contact</NavLink>
     </>
 
     return (
-        <header id='navbar' className="sticky w-full lg:bg-white/74 lg:backdrop-blur-md lg:dark:bg-[var(--color-bg)]/80 dark:bg-[var(--color-bg)] top-0 z-50">
+        <header id='navbar' className="sticky w-full bg-base-200 lg:bg-base-200/74 lg:backdrop-blur-md lg:dark:bg-[var(--color-bg)]/80 dark:bg-[var(--color-bg)] top-0 z-50">
             <div className="max-w-7xl mx-auto flex items-center justify-between lg:px-4 md:px-24 sm:px-10 px-4 py-3 md:py-4">
 
                 <div className='flex justify-between items-center lg:w-auto w-full'>
@@ -71,7 +71,7 @@ const Header = () => {
                         </div>
 
                         {/* Nav Links - Desktop */}
-                        <nav className="text-sm items-center hidden lg:flex xl:gap-8 gap-6 xl:ml-8 ml-6">
+                        <nav className="xl:text-base text-sm items-center hidden lg:flex xl:gap-8 gap-6 xl:ml-12 ml-10">
                             {links}
                         </nav>
                     </div>
@@ -119,7 +119,7 @@ const Header = () => {
                 <div className="hidden lg:flex text-sm space-x-6 items-center">
 
                     {/* Theme Buttons - Desktop */}
-                    <div className="dropdown text-[var(--color-text-primary)] dark:text-[var(--color-dark-primary)] border-[var(--color-light-accent)] dark:border-[var(--color-dark-accent)]">
+                    <div className="dropdown xl:text-base text-sm text-[var(--color-text-primary)] dark:text-[var(--color-dark-primary)] border-[var(--color-light-accent)] dark:border-[var(--color-dark-accent)]">
                         <button className="group flex gap-1 items-center py-3 rounded-md">
                             <span className='flex items-center gap-1'>
                                 {darkMode ? <MdDarkMode size={20} className='-rotate-10 group-hover:rotate-26 transition-all duration-300' /> : <MdLightMode size={20} className='text-orange-300 -rotate-10 group-hover:rotate-26 transition-all duration-300' />}
@@ -128,7 +128,7 @@ const Header = () => {
                             <svg
                                 width="12px"
                                 height="12px"
-                                className="inline-block h-2 w-2 mt-1 fill-current opacity-60 dark:opacity-100"
+                                className="inline-block xl:h-3 xl:w-3 h-2 w-2 mt-1 fill-current opacity-60 dark:opacity-100"
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 2048 2048">
                                 <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>

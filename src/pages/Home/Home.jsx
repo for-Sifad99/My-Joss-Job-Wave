@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import Banner from './Banner';
 
 const Home = () => {
     return (
@@ -12,8 +13,9 @@ const Home = () => {
 
 
             {/* Content */}
-            <section className='py-10 h-[500px]'>
-                <h1 className='dark:text-[var(--color-dark-primary)]'>Home!!</h1>
+            <section>
+                {/* Banner */}
+                <Banner />
             </section>
         </>
     );

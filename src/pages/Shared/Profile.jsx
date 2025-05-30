@@ -3,7 +3,7 @@ import { AuthContext } from "../../contexts/AuthContexts/AuthContext";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { GoSignOut } from "react-icons/go";
-import { FaCircleArrowRight } from "react-icons/fa6";
+
 
 const Profile = () => {
     const { signOutUser, user } = useContext(AuthContext);
