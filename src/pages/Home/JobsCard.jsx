@@ -51,7 +51,7 @@ const JobsCard = ({ job }) => {
             {/* Apply button */}
             <Link to={`/jobs/${_id}`}>
                 <button className="flex justify-center w-full text-white md:mt-4 mt-2 px-4 py-2 rounded  bg-[#3c65f5] hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 transition-all duration-300 md:group-hover:-rotate-4 sm:group-hover:-rotate-3 group-hover:-rotate-2"> Show Details</button>
-                </Link>
+            </Link>
         </motion.div>
     );
 };

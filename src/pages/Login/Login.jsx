@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
 import { FaGoogle } from "react-icons/fa";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import loginLottie from '../../assets/lotties/login.json';
 import { Helmet } from "react-helmet-async";
 import Lottie from "lottie-react";
@@ -12,9 +12,11 @@ import { useRef } from "react";
 
 const Login = () => {
     const { setUser, signInUser, createGoogleUser, forgotPassword } = useContext(AuthContext);
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const emailRef = useRef();
-    const [showPassword, setShowPassword] = useState(false);
+    const location = useLocation();
+    const from = location?.state || '/';
 
 
     const handleLogin = async (e) => {
@@ -60,7 +62,7 @@ const Login = () => {
 
                 setTimeout(() => {
                     setUser(currentUser);
-                    navigate('/')
+                    navigate(from);
                 }, 3000);
             }
         }
@@ -111,7 +113,7 @@ const Login = () => {
 
         setTimeout(() => {
             setUser(currentUser);
-            navigate('/')
+            navigate(from);
         }, 3000);
     };
 

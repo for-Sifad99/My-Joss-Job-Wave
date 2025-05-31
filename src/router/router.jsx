@@ -2,9 +2,11 @@ import React from 'react';
 import {
     createBrowserRouter,
 } from "react-router";
+import PrivetRouter from '../router/PrivetRouter';
 import Root from '../layouts/Root';
 import Home from '../pages/Home/Home';
 import JobDetails from '../pages/JobDetails/JobDetails';
+import ApplyJob from '../pages/ApplyJob/ApplyJob';
 import Register from '../pages/Register/Register';
 import Login from '../pages/Login/Login';
 import AllJobs from '../pages/AllJobs/AllJobs';
@@ -28,6 +30,10 @@ const router = createBrowserRouter([
                 Component: JobDetails,
                 loader: ({ params }) => fetch(`http://localhost:3000/jobs/${params.id}`),
                 hydrateFallbackElement: <div className='flex flex-col mx-auto mt-12 justify-center items-center'><span className="loading loading-dots loading-xl" /></div>
+            },
+            {
+                path: '/apply-job/:id',
+                element: <PrivetRouter><ApplyJob /></PrivetRouter>,
             },
             {
                 path: '/register',
