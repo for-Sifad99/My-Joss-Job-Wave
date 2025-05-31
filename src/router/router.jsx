@@ -1,9 +1,10 @@
 import React from 'react';
-import Home from '../pages/Home/Home'
 import {
     createBrowserRouter,
 } from "react-router";
 import Root from '../layouts/Root';
+import Home from '../pages/Home/Home';
+import JobDetails from '../pages/JobDetails/JobDetails';
 import Register from '../pages/Register/Register';
 import Login from '../pages/Login/Login';
 import AllJobs from '../pages/AllJobs/AllJobs';
@@ -18,17 +19,50 @@ const router = createBrowserRouter([
         path: "/",
         Component: Root,
         children: [
-            { index: true, Component: Home },
-            { path: '/register', Component: Register },
-            { path: '/login', Component: Login },
-            { path: '/jobs', Component: AllJobs },
-            { path: '/add-job', Component: AddJob },
-            { path: '/application/me', Component: Applications },
-            { path: '/my-jobs', Component: MyJobs },
-            { path: '/contact', Component: Contact},
+            {
+                index: true,
+                Component: Home
+            },
+            {
+                path: '/jobs/:id',
+                Component: JobDetails,
+                loader: ({ params }) => fetch(`http://localhost:3000/jobs/${params.id}`),
+                hydrateFallbackElement: <div className='flex flex-col mx-auto mt-12 justify-center items-center'><span className="loading loading-dots loading-xl" /></div>
+            },
+            {
+                path: '/register',
+                Component: Register
+            },
+            {
+                path: '/login',
+                Component: Login
+            },
+            {
+                path: '/jobs',
+                Component: AllJobs
+            },
+            {
+                path: '/add-job',
+                Component: AddJob
+            },
+            {
+                path: '/application/me',
+                Component: Applications
+            },
+            {
+                path: '/my-jobs',
+                Component: MyJobs
+            },
+            {
+                path: '/contact',
+                Component: Contact
+            },
         ]
     },
-    { path: '/*', Component: ErrorPage },
+    {
+        path: '/*',
+        Component: ErrorPage
+    },
 ]);
 
 export default router;

@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Banner from './Banner';
 import HotJobs from './HotJobs';
+import { div } from 'motion/react-client';
 
 const Home = () => {
     const jobsPromise = fetch('http://localhost:3000/jobs').then(res => res.json());
@@ -21,7 +22,7 @@ const Home = () => {
                 <Banner />
 
                 {/* Hot jobs */}
-                <Suspense fallback={<span className="loading loading-ring loading-xl"></span>}>
+                <Suspense fallback={<div className='flex flex-col mx-auto mt-12 justify-center items-center'><span className="loading loading-dots loading-xl" /></div>}>
                     <HotJobs jobsPromise={jobsPromise} />
                 </Suspense>
             </section>

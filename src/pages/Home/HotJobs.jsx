@@ -9,7 +9,7 @@ const HotJobs = ({ jobsPromise }) => {
     return (
         <div className="bg-white dark:bg-[var(--color-section-bg)] text-[var(--color-text-primary)] dark:text-[var(--color-dark-primary)] xl:px-14 lg:px-6 md:px-26 sm:px-12 px-6 py-10">
             <h2 className="sm:text-3xl text-2xl font-bold text-center sm:mb-2 mb-1">Jobs of the day</h2>
-            <p className="text-center sm:text-base text-sm text-gray-400 sm:mb-6 mb-4">
+            <p className="text-center sm:text-base text-sm text-gray-600 dark:text-gray-400 sm:mb-6 mb-4">
                 Search and connect with the right candidate faster.
             </p>
 
