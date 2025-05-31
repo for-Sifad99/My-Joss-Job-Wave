@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Banner from './Banner';
+import HotJobs from './HotJobs';
 
 const Home = () => {
+    const jobsPromise = fetch('http://localhost:3000/jobs').then(res => res.json());
+
     return (
         <>
             {/* Helmet */}
@@ -16,6 +19,11 @@ const Home = () => {
             <section>
                 {/* Banner */}
                 <Banner />
+
+                {/* Hot jobs */}
+                <Suspense fallback={<span className="loading loading-ring loading-xl"></span>}>
+                    <HotJobs jobsPromise={jobsPromise} />
+                </Suspense>
             </section>
         </>
     );

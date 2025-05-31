@@ -6,12 +6,20 @@ import team2 from '../../assets/team/team2.png';
 
 
 const Banner = () => {
+
     return (
         <div className="relative bg-[#f2f6ff] dark:bg-[var(--color-section-bg)] text-[var(--color-text-primary)] dark:text-[var(--color-dark-primary)] w-full">
             {/* Main Container */}
             <div className="max-w-7xl mx-auto lg:px-4 md:px-24 sm:px-10 px-4 lg:pt-0 lg:pb-14 sm:py-10 py-8 grid grid-cols-1 lg:grid-cols-2 items-center gap-8">
                 {/* Left Content */}
-                <div className="text-center lg:text-left">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                        duration: 2,
+                        ease: [0, 0.71, 0.2, 1.01],
+                    }}
+                    className="text-center lg:text-left">
                     <h1 className="text-3xl xl:text-5xl lg:text-3xl sm:text-4xl font-bold leading-tight">
                         The  <motion.span animate={
                             {
@@ -46,7 +54,7 @@ const Banner = () => {
                     <div className="text-xs sm:text-sm  text-[var(--color-text-copy)] dark:text-gray-400 mt-3">
                         Popular Searches: <span className="underline">Designer</span>, Web, iOS, Developer, PHP, Senior, Engineer
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Right Image */}
                 <div className="hidden lg:block">
