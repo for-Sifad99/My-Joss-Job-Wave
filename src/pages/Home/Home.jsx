@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Banner from './Banner';
 import HotJobs from './HotJobs';
+import Loader from '../Shared/Loader';
 
 const Home = () => {
     const jobsPromise = fetch('http://localhost:3000/jobs').then(res => res.json());
@@ -19,9 +20,9 @@ const Home = () => {
             <section>
                 {/* Banner */}
                 <Banner />
-
+                
                 {/* Hot jobs */}
-                <Suspense fallback={<div className='flex flex-col mx-auto mt-12 justify-center items-center'><span className="loading loading-dots loading-xl" /></div>}>
+                <Suspense fallback={<Loader />}>
                     <HotJobs jobsPromise={jobsPromise} />
                 </Suspense>
             </section>

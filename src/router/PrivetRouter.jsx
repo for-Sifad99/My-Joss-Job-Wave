@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContexts/AuthContext';
 import { Navigate, useLocation } from 'react-router';
+import Loader from '../pages/Shared/Loader';
 
 const PrivetRouter = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
@@ -8,7 +9,7 @@ const PrivetRouter = ({ children }) => {
 
     // set loading when user Null
     if (loading) {
-        return <div className='flex flex-col mx-auto mt-12 justify-center items-center'><span className="loading loading-dots loading-xl" /></div>
+        return <Loader />
     };
 
     // navigate user where he/she want to go After login

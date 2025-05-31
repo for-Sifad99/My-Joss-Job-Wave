@@ -15,11 +15,11 @@ const JobsCard = ({ job }) => {
                 duration: 0.8,
                 ease: [0, 0.71, 0.2, 1.01],
             }}
-            className="border bg-[#fcfcfc] dark:bg-[#252a36]  border-blue-100 hover:border-3 dark:border-[#323e61] hover:-rotate-4 p-5 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 group"
+            className="border bg-[#fcfcfc] dark:bg-[#22272e]  border-blue-100 hover:border-3 dark:border-[#293141] hover:-rotate-4 p-5 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 group"
         >
             {/* Image, Company and Location */}
             <div className="flex items-center sm:gap-3 gap-2 sm:mb-4 mb-2">
-                <img src={company_logo} className="sm:w-14 sm:h-14 w-12 h-12 sm:p-2 p-1 bg-gray-200 flex items-center justify-center rounded-full">
+                <img src={company_logo} className="sm:w-14 sm:h-14 w-12 h-12 sm:p-2 p-1 bg-gray-200 dark:bg-gray-700 flex items-center justify-center rounded-full">
                 </img>
                 <div>
                     <h3 className="sm:text-xl text-base font-semibold">{company}</h3>

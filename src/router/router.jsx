@@ -15,6 +15,7 @@ import Applications from '../pages/Applications/Applications';
 import MyJobs from '../pages/MyJobs/MyJobs';
 import Contact from '../pages/Contact/Contact';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
+import Loader from '../pages/Shared/Loader';
 
 const router = createBrowserRouter([
     {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
                 path: '/jobs/:id',
                 Component: JobDetails,
                 loader: ({ params }) => fetch(`http://localhost:3000/jobs/${params.id}`),
-                hydrateFallbackElement: <div className='flex flex-col mx-auto mt-12 justify-center items-center'><span className="loading loading-dots loading-xl" /></div>
+                hydrateFallbackElement: <Loader />
             },
             {
                 path: '/apply-job/:id',
