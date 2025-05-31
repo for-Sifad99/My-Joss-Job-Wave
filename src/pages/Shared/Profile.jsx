@@ -1,12 +1,12 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { AuthContext } from "../../contexts/AuthContexts/AuthContext";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
+import useAuth from '../../hooks/UseAuth';
 import Swal from "sweetalert2";
 import { GoSignOut } from "react-icons/go";
 
 
 const Profile = () => {
-    const { signOutUser, user } = useContext(AuthContext);
+    const { signOutUser, user } = useAuth();
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const modalRef = useRef(null);

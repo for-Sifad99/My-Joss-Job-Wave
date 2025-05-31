@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext'
-import { auth } from '../../../firebase/firebase.config'
+import { auth } from '../../firebase/firebase.config'
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 
 const AuthProvider = ({ children }) => {
@@ -30,45 +30,45 @@ const AuthProvider = ({ children }) => {
     //? Reset Password:
     const forgotPassword = (email) => {
         setLoading(true);
-    return sendPasswordResetEmail(auth, email);
+        return sendPasswordResetEmail(auth, email);
     };
 
 
-//? SignIn User:
-const signInUser = (email, password) => {
-    setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
-};
+    //? SignIn User:
+    const signInUser = (email, password) => {
+        setLoading(true);
+        return signInWithEmailAndPassword(auth, email, password);
+    };
 
-//? SignOut User:
-const signOutUser = () => {
-    setLoading(true);
-    return signOut(auth);
-};
+    //? SignOut User:
+    const signOutUser = () => {
+        setLoading(true);
+        return signOut(auth);
+    };
 
-//? Observer:
-useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-        setLoading(false);
-        setUser(currentUser);
-    })
-}, []);
+    //? Observer:
+    useEffect(() => {
+        onAuthStateChanged(auth, (currentUser) => {
+            setLoading(false);
+            setUser(currentUser);
+        })
+    }, []);
 
-const authInfo = {
-    loading,
-    user,
-    setUser,
-    createUser,
-    createGoogleUser,
-    emailVerification,
-    signInUser,
-    forgotPassword,
-    signOutUser
-};
+    const authInfo = {
+        loading,
+        user,
+        setUser,
+        createUser,
+        createGoogleUser,
+        emailVerification,
+        signInUser,
+        forgotPassword,
+        signOutUser
+    };
 
-return <AuthContext value={authInfo}>
-    {children}
-</AuthContext>
+    return <AuthContext value={authInfo}>
+        {children}
+    </AuthContext>
 };
 
 export default AuthProvider;

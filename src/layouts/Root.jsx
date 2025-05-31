@@ -2,8 +2,8 @@ import React from 'react';
 import { Outlet } from 'react-router';
 import Header from '../pages/Shared/Header';
 import Footer from '../pages/Shared/Footer';
-import { ThemeProvider } from '../contexts/ThemeContexts/ThemeContext';
 import Scroll from '../pages/Shared/Scroll';
+import { ThemeProvider } from '../hooks/ThemeContext';
 
 
 const Root = () => {

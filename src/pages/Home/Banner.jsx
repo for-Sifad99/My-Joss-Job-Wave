@@ -8,7 +8,7 @@ import team2 from '../../assets/team/team2.png';
 const Banner = () => {
 
     return (
-        <div className="relative bg-[#f2f6ff] dark:bg-[var(--color-section-bg)] text-[var(--color-text-primary)] dark:text-[var(--color-dark-primary)] w-full">
+        <div className="relative bg-[#f2f6ff] dark:bg-[#1f2129] text-[var(--color-text-primary)] dark:text-[var(--color-dark-primary)] w-full">
             {/* Main Container */}
             <div className="max-w-7xl mx-auto lg:px-4 md:px-24 sm:px-10 px-4 lg:pt-0 lg:pb-14 sm:py-10 py-8 grid grid-cols-1 lg:grid-cols-2 items-center gap-8">
                 {/* Left Content */}

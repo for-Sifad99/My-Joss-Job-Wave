@@ -1,17 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
 import { FaGoogle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router";
 import loginLottie from '../../assets/lotties/login.json';
 import { Helmet } from "react-helmet-async";
 import Lottie from "lottie-react";
-import { AuthContext } from "../../contexts/AuthContexts/AuthContext";
+import useAuth from '../../hooks/UseAuth';
 import Swal from "sweetalert2";
 import { useRef } from "react";
 
 
 const Login = () => {
-    const { setUser, signInUser, createGoogleUser, forgotPassword } = useContext(AuthContext);
+    const { setUser, signInUser, createGoogleUser, forgotPassword } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const emailRef = useRef();

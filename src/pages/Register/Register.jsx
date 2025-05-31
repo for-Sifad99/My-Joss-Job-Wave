@@ -1,16 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { FiUser, FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
 import { Link, useNavigate } from "react-router";
 import registerLottie from '../../assets/lotties/register.json';
 import { Helmet } from "react-helmet-async";
 import Lottie from "lottie-react";
-import { AuthContext } from "../../contexts/AuthContexts/AuthContext";
+import useAuth from '../../hooks/UseAuth';
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { FaGoogle } from "react-icons/fa";
 
 const Register = () => {
-    const { createUser, createGoogleUser, emailVerification, signOutUser } = useContext(AuthContext);
+    const { createUser, createGoogleUser, emailVerification, signOutUser } = useAuth();
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState();
@@ -43,7 +43,7 @@ const Register = () => {
         //? Create User:
         try {
             await createUser(email, password);
-            
+
             // Send Email Verification
             await emailVerification();
 
@@ -68,7 +68,7 @@ const Register = () => {
                 await signOutUser();
                 navigate('/login')
             }, 3000);
-        } 
+        }
         catch (error) {
             // Error handling :
             if (error.code === 'auth/email-already-in-use') {
@@ -90,7 +90,7 @@ const Register = () => {
         //? Create User with Google:
         try {
             await createGoogleUser();
-            
+
             // Sweet Alert :
             const Toast = Swal.mixin({
                 toast: true,
@@ -112,7 +112,7 @@ const Register = () => {
                 await signOutUser();
                 navigate('/login')
             }, 3000);
-        } 
+        }
         catch (error) {
             // Firebase Google Sign-In error handling :
             if (error.code === 'auth/popup-closed-by-user') {

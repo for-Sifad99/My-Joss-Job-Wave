@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import React from 'react';
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import { FaApple, FaGooglePlay } from "react-icons/fa";
 

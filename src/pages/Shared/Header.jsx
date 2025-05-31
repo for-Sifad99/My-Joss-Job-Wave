@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaUserPlus } from 'react-icons/fa';
 import { FiSearch } from 'react-icons/fi';
 import { GoSignIn } from 'react-icons/go';
 import { MdDarkMode, MdLightMode } from 'react-icons/md';
 import { Link, NavLink } from 'react-router';
-import { useDarkMode } from '../../contexts/ThemeContexts/ThemeContext';
-import { AuthContext } from '../../contexts/AuthContexts/AuthContext';
+import { useDarkMode } from '../../hooks/ThemeContext';
+import useAuth from '../../hooks/UseAuth';
 import Profile from './Profile';
 
 
 const Header = () => {
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
     const [menuOpen, setMenuOpen] = useState(false);
     const { darkMode, setDarkMode } = useDarkMode();
     const menuRef = useRef();
@@ -107,10 +107,10 @@ const Header = () => {
                         </div>
 
                         {/* Profile */}
-                        {user && 
-                        <div className='lg:hidden'>
-                            <Profile />
-                        </div>
+                        {user &&
+                            <div className='lg:hidden'>
+                                <Profile />
+                            </div>
                         }
                     </div>
                 </div>
