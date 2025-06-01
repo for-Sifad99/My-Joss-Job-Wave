@@ -1,8 +1,10 @@
 import React from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { MdAccessTime } from 'react-icons/md';
+import { TbListDetails } from 'react-icons/tb';
 import { Link } from 'react-router';
 import { motion } from "motion/react";
+
 
 const JobsCard = ({ job }) => {
     const { _id, company_logo, title, company, location, applicationDeadline, jobType, salaryRange, description, requirements } = job;
@@ -50,10 +52,11 @@ const JobsCard = ({ job }) => {
 
             {/* Apply button */}
             <Link to={`/jobs/${_id}`}>
-                <button className="flex justify-center w-full text-white md:mt-4 mt-2 px-4 py-2 rounded  bg-[#3c65f5] hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 transition-all duration-300 md:group-hover:-rotate-4 sm:group-hover:-rotate-3 group-hover:-rotate-2"> Show Details</button>
+                <button className="flex justify-center gap-1 items-center w-full text-white md:mt-4 mt-2 px-4 py-2 rounded  bg-[#3c65f5] hover:bg-linear-to-r/srgb hover:from-indigo-500 hover:to-indigo-400 transition-all duration-300 md:group-hover:-rotate-4 sm:group-hover:-rotate-3 group-hover:-rotate-2"> Show Details <TbListDetails className='transition-all duration-300 group-hover:translate-x-2' /></button>
             </Link>
         </motion.div>
     );
 };
 
 export default JobsCard;
+
