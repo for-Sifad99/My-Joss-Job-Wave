@@ -1,16 +1,21 @@
 import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { FaHome, FaPaperPlane } from "react-icons/fa";
+import useAuth from '../../hooks/UseAuth';
 import { motion } from "framer-motion";
 import bannerImg from '../../assets/apply-job-banner.png';
 import { Link, useParams } from "react-router";
 import { Typewriter } from 'react-simple-typewriter';
 import Lottie from "lottie-react";
 import jobApplyLottie from '../../assets/lotties/jobApply.json';
+import axios from "axios";
+import Swal from "sweetalert2";
+
 
 
 const ApplyJob = () => {
     const { id } = useParams();
+    const { user } = useAuth();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,9 +23,49 @@ const ApplyJob = () => {
         const form = e.target;
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-        console.log(data)
-    };
+        console.log(data);
 
+        // Job Applicator information
+        const application = {
+            jobId: id,
+            applicantName: data.name,
+            applicantEmail: user.email,
+            applicantPhone: data.phone,
+            applicantResume: data.resume,
+            applicantGithub: data.github,
+            applicantLinkedIn: data.linkedin,
+            applicantCoverLetter: data.coverLetter,
+            applicantPhoto: data.photo,
+        };
+        console.log(application);
+
+        // Post the application to DB
+        axios.post('http://localhost:3000/applications', application)
+            .then(res => {
+                console.log(res);
+                if (res.data.insertedId) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        }
+                    });
+                    Toast.fire({
+                        icon: "success",
+                        title: "Congratulations! Apply DONE."
+                    });
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+    };
     // input filed styles
     const inputStyle = "w-full p-3 border-3 border-gray-300 dark:border-gray-700 dark:text-gray-400 rounded-lg focus:outline-blue-500 dark:focus:outline-blue-900";
 
@@ -150,10 +195,10 @@ const ApplyJob = () => {
                             <div>
                                 <label className="block mb-1 font-medium">Upload Your Photo</label>
                                 <input
-                                    type="file"
+                                    type="url"
                                     name="photo"
-                                    accept="image/*"
-                                    className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-lg file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:bg-blue-100 file:text-blue-900 hover:file:font-semibold hover:file:bg-blue-200 file:rounded-lg"
+                                    placeholder="photo Url"
+                                    className={inputStyle}
                                 />
                             </div>
 
@@ -183,3 +228,15 @@ const ApplyJob = () => {
 };
 
 export default ApplyJob;
+
+
+
+
+
+
+
+
+
+
+
+
