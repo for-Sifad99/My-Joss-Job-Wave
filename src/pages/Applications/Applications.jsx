@@ -1,14 +1,11 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import ApplicationsList from './ApplicationList';
 import useAuth from '../../hooks/UseAuth';
-import Loader from '../../pages/Shared/Loader';
-import myApplicationsPromise from '../../api/applicationsApi';
-
 
 const Applications = () => {
     const { user } = useAuth();
-        
+
     return (
         <>
             {/* Helmet */}
@@ -19,9 +16,7 @@ const Applications = () => {
 
             {/* Content */}
             <section className='py-10 text-[var(--color-text-primary)] dark:text-[var(--color-dark-primary)] bg-gray-100 dark:bg-[var(--color-section-bg)]'>
-                <Suspense fallback={<Loader />}>
-                    <ApplicationsList myApplicationsPromise={myApplicationsPromise(user.email)}/>
-                </Suspense>
+                    <ApplicationsList email={user.email} />
             </section>
         </>
     );

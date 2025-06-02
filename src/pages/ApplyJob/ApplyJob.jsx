@@ -23,7 +23,7 @@ const ApplyJob = () => {
         const form = e.target;
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-        console.log(data);
+        // console.log(data);
 
         // Job Applicator information
         const application = {
@@ -37,12 +37,12 @@ const ApplyJob = () => {
             applicantCoverLetter: data.coverLetter,
             applicantPhoto: data.photo,
         };
-        console.log(application);
+        // console.log(application);
 
         // Post the application to DB
         axios.post('http://localhost:3000/applications', application)
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.insertedId) {
                     const Toast = Swal.mixin({
                         toast: true,
