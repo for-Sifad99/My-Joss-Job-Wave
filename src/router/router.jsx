@@ -50,7 +50,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/add-job',
-                Component: AddJob
+                element: <PrivetRouter><AddJob /></PrivetRouter>
             },
             {
                 path: '/application/me',

@@ -38,7 +38,9 @@ const Header = () => {
     const links = <>
         <NavLink to="/" onClick={() => setMenuOpen(false)} className={linksStyle}>Home</NavLink>
         <NavLink to="/jobs" onClick={() => setMenuOpen(false)} className={linksStyle}>All Jobs</NavLink>
+        {/* For Recruiter */}
         <NavLink to="/add-job" onClick={() => setMenuOpen(false)} className={linksStyle}>Add Job</NavLink>
+        {/* For Applicant */}
         <NavLink to="/application/me" onClick={() => setMenuOpen(false)} className={linksStyle}>My Applications</NavLink>
         <NavLink to="/my-jobs" onClick={() => setMenuOpen(false)} className={linksStyle}>My Job Posts</NavLink>
         <NavLink to="/contact" onClick={() => setMenuOpen(false)} className={linksStyle}>Contact</NavLink>
@@ -63,9 +65,9 @@ const Header = () => {
                         </button>
 
                         {/* Logo For All Device */}
-                        <div className="flex items-center">
+                        <div className="flex items-center md:gap-1">
                             <Link to='/' >
-                                <img src="/logo.png" alt="Logo" className="lg:h-8 h-9 w-10" />
+                                <img src="/logo.png" alt="Logo" className="md:w-10 w-9" />
                             </Link>
                             <h1 className="xl:text-3xl text-2xl font-extrabold text-[var(--color-text-primary)] dark:text-[var(--color-dark-accent)]">Job Wave</h1>
                         </div>
