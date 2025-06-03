@@ -1,26 +1,90 @@
 import React from "react";
 import { FaPaperPlane } from "react-icons/fa";
+import useAuth from '../../hooks/UseAuth';
+import Swal from "sweetalert2";
+import axios from "axios";
 
+// Input Style
 const inputStyle =
     "w-full border-3 border-gray-300 dark:border-gray-700 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 md:mb-[10px] sm:mb-2 mb-2";
 
 const AddJob = () => {
+    const { user } = useAuth();
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const form = e.target;
         const formData = new FormData(form);
         const jobData = Object.fromEntries(formData.entries());
-        console.log("Submitted form data:", jobData);
+
+        // Process Salary Object
+        const { min, max, currency, ...newJob } = jobData;
+        newJob.salaryRange = { min, max, currency };
+        // Process Requirements
+        newJob.requirements = newJob.requirements.split(',').map(req => req.trim());
+        // Process Responsibilities
+        newJob.responsibilities = newJob.responsibilities.split(',').map(req => req.trim());
+
+        // Set Status
+        newJob.status = 'active';
+        // console.log(newJob);
+
+        // Check Empty
+        for (let [key, value] of Object.entries(newJob)) {
+            if (!value) {
+                // Sweet Alert :
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "warning",
+                    title: "Please fill out the All field!!"
+                });
+            };
+        };
+
+        // Add New Job to DB
+        axios.post('http://localhost:3000/jobs', newJob)
+            .then(res => {
+                // console.log(res);
+                if (res.data.insertedId) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        }
+                    });
+                    Toast.fire({
+                        icon: "success",
+                        title: "Your job has been added successfully!!"
+                    });
+                };
+            })
+            .catch(error => {
+                console.log(error);
+            });
     };
 
     return (
         <section className="flex mx-auto max-w-7xl md:flex-row flex-col lg:px-6 md:px-24 sm:px-10 px-6 py-8 text-[var(--color-text-primary)] dark:text-[var(--color-dark-primary)]">
             <form
                 onSubmit={handleSubmit}
-                className="lg:min-w-3xl md:min-w-full sm:max-w-xl xl:mx-0 max-w-[400px] w-full mx-auto"
+                className="lg:min-w-3xl md:min-w-full sm:max-w-xl max-w-[400px] w-full mx-auto"
             >
-                <h2 className="text-3xl sm:text-5xl md:text-4xl lg:text-5xl font-bold text-center md:text-start uppercase md:mb-4 sm:mb-5 mb-3">
+                <h2 className="text-3xl sm:text-5xl md:text-4xl lg:text-5xl font-bold text-center uppercase md:mb-4 sm:mb-5 mb-3">
                     Add Job
                 </h2>
                 {/* Company Name */}
@@ -69,29 +133,29 @@ const AddJob = () => {
                 </div>
 
                 {/* SALARY */}
-                    <div className="flex sm:flex-row flex-col sm:gap-2 sm:items-center w-full">
-                        {/* Minimum Salary */}
-                        <input
-                            type="text"
-                            name="min"
-                            placeholder="Salary Min"
-                            className={`${inputStyle} w-1/3`}
-                        />
-                        {/* Maximum Salary */}
-                        <input
-                            type="text"
-                            name="max"
-                            placeholder="Salary Max"
-                            className={`${inputStyle} w-1/3`}
-                        />
-                        {/* Currency */}
+                <div className="flex sm:flex-row flex-col sm:gap-2 sm:items-center w-full">
+                    {/* Minimum Salary */}
+                    <input
+                        type="text"
+                        name="min"
+                        placeholder="Salary Min"
+                        className={`${inputStyle} w-1/3`}
+                    />
+                    {/* Maximum Salary */}
+                    <input
+                        type="text"
+                        name="max"
+                        placeholder="Salary Max"
+                        className={`${inputStyle} w-1/3`}
+                    />
+                    {/* Currency */}
                     <select defaultValue="Pick a currency" name="currency" className={`${inputStyle} dark:text-gray-400 dark:bg-[var(--color-section-bg)] select w-1/3 md:w-1/2`}>
-                            <option disabled={true}>Pick a currency</option>
-                            <option>BDT</option>
-                            <option>USD</option>
-                            <option>$</option>
-                        </select>
-                    </div>
+                        <option disabled={true}>Pick a currency</option>
+                        <option>BDT</option>
+                        <option>USD</option>
+                        <option>$</option>
+                    </select>
+                </div>
 
                 {/* Job Description */}
                 <textarea
@@ -129,6 +193,7 @@ const AddJob = () => {
                 <input
                     type="text"
                     name="hr_email"
+                    defaultValue={user?.email}
                     placeholder="HR Email"
                     className={inputStyle}
                 />

@@ -11,8 +11,6 @@ import jobApplyLottie from '../../assets/lotties/jobApply.json';
 import axios from "axios";
 import Swal from "sweetalert2";
 
-
-
 const ApplyJob = () => {
     const { id } = useParams();
     const { user } = useAuth();
@@ -130,7 +128,7 @@ const ApplyJob = () => {
                     {/* Form Content */}
                     <section className="flex md:flex-row flex-col justify-between">
                         {/* Left content (form) */}
-                        <form onSubmit={handleSubmit} className="space-y-4 md:w-full sm:w-md mx-auto">
+                        <form onSubmit={handleSubmit} className="space-y-4 w-full mx-auto">
                             {/* Form header */}
                             <h2 className="text-3xl sm:text-5xl md:text-4xl lg:text-5xl font-bold text-center md:text-start uppercase md:mb-4 sm:mb-5 mb-3">
                                 Apply - Now
