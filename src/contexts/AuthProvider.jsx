@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext'
 import { auth } from '../../firebase/firebase.config'
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import axios from 'axios';
 
 const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
@@ -49,9 +50,24 @@ const AuthProvider = ({ children }) => {
     //? Observer:
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
-            setLoading(false);
             setUser(currentUser);
-        })
+            setLoading(false);
+
+            // Post and Save JWT Token
+            if (currentUser?.email) {
+                const JWTtoken = { email: currentUser.email };
+
+                // Post JWTtoken to Server
+                axios.post('http://localhost:3000/jwt', JWTtoken)
+                    .then(res => {
+                        const token = res.data.token;
+                        // BAD Way to Save
+                        localStorage.setItem('token', token);
+                        // console.log('JWTtoken: ',token);
+                    })
+                    .catch(error => console.log(error));
+            };
+        });
     }, []);
 
     const authInfo = {

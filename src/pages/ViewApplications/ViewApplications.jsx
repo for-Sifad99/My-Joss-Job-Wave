@@ -1,13 +1,13 @@
-import axios from 'axios';
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import axios from 'axios';
 import { useLoaderData, useParams } from 'react-router';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const ViewApplications = () => {
     const { job_id } = useParams();
     const applications = useLoaderData();
-    console.log(applications)
+    // console.log(applications);
 
     const handleUpdateStatus = (e, appId) => {
         const status = e.target.value;
@@ -42,10 +42,12 @@ const ViewApplications = () => {
     return <>
         {/* Helmet */}
         <Helmet>
-            <title>View Applications | Job Wave</title>
-            <meta name="description" content="Check how many posts you posted for this application. View post counts." />
+            <title>Applications for : {job_id} - Job Wave</title>
+            <meta
+                name="description"
+                content={`See which users have applied for your job post (${job_id}). Track total applications and update statuses easily.`}
+            />
         </Helmet>
-
 
         {/* Content */}
         <section className='max-w-7xl mx-auto gap-6 px-6 lg:px-4 md:px-24 sm:px-10 md:py-8 py-6'>
