@@ -62,8 +62,8 @@ const ApplyJob = () => {
             .catch(error => {
                 console.log(error);
             })
-
     };
+    
     // input filed styles
     const inputStyle = "w-full p-3 border-3 border-gray-300 dark:border-gray-700 dark:text-gray-400 rounded-lg focus:outline-blue-500 dark:focus:outline-blue-900";
 

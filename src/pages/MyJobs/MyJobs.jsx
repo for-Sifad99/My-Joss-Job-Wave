@@ -46,42 +46,46 @@ const MyJobs = () => {
             <section className='max-w-7xl mx-auto flex flex-col-reverse md:flex-row gap-6 px-6 md:px-6 md:py-8 py-10'>
                 {/* Job Applications */}
                 <main className="flex-1 md:p-8">
-                    <div className="mb-4 border-b dark:border-slate-400 pb-2 flex gap-6 overflow-x-auto">
+                    <div className="border-b dark:border-slate-400 pb-2 flex gap-6 overflow-x-auto">
                         <button className="md:text-base sm:text-xl text-base font-bold dark:text-slate-400 border-b-2 border-black dark:border-slate-400 pb-1 whitespace-nowrap">
                             My Posted Jobs
                         </button>
                     </div>
 
-                    {/* Posted Jobs List */}
-                    <div className="space-y-4">
-                        <div className="overflow-x-scroll w-full mx-auto ">
-                            <table className="table dark:text-[var(--color-dark-primary)]">
-                                {/* head */}
-                                <thead className='dark:text-[var(--color-dark-primary)]'>
-                                    <tr>
-                                        <th>Post</th>
-                                        <th>Title</th>
-                                        <th>Deadline</th>
-                                        <th>View Posts</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {myJobs.map((job, index) =>
-                                        <tr key={job._id} className="bg-base-200 border-b border-gray-700 dark:bg-[#22313d]">
-                                            <th>{index + 1}</th>
-                                            <td>{job.title}</td>
-                                            <td className='text-sm text-xs'>{job.applicationDeadline}</td>
-                                            <td><Link to={`/application/${job._id}`} >
-                                                <button type='submit' className="flex gap-1 text-xs sm:text-base md:text-sm items-center bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
-                                                    View Posts
-                                                </button>
-                                            </Link></td>
+                    {myJobs.length == 0 ?
+                        '' : <>
+                            {/* Posted Jobs List */}
+                            <div className="sm:overflow-x-scroll-none overflow-x-scroll w-full mx-auto mt-4">
+                                <table className="table dark:text-[var(--color-dark-primary)]">
+                                    {/* head */}
+                                    <thead className='dark:text-[var(--color-dark-primary)]'>
+                                        <tr>
+                                            <th>Post</th>
+                                            <th>Title</th>
+                                            <th>Deadline</th>
+                                            <th>Count</th>
+                                            <th>View Posts</th>
                                         </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                    </thead>
+                                    <tbody>
+                                        {myJobs.map((job, index) =>
+                                            <tr key={job._id} className="bg-base-200 border-b border-gray-300 dark:border-gray-700 dark:bg-[#22313d]">
+                                                <th>{index + 1}</th>
+                                                <td>{job.title}</td>
+                                                <td className='text-sm text-xs'>{job.applicationDeadline}</td>
+                                                <td>{job.count}</td>
+                                                <td><Link to={`/application/${job._id}`} >
+                                                    <button type='submit' className="flex gap-1 text-xs sm:text-base md:text-sm items-center bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+                                                        View Posts
+                                                    </button>
+                                                </Link></td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </>
+                    }
                 </main>
             </section >
         </>
