@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
-import { AiFillRead } from "react-icons/ai";
 import { MdDeleteSweep } from "react-icons/md"
 import { Link } from 'react-router';
 import myApplicationsPromise from '../../api/applicationsApi';
@@ -221,15 +220,10 @@ const Applications = () => {
                                         <span className="md:text-xs sm:tet-sm text-xs text-gray-500 whitespace-nowrap">Category: {category}</span>
                                     </div>
 
-                                    {/* Read more and Delete Button */}
-                                    <div className='flex items-center lg:gap-3 md:gap-1 gap-2 flex-row md:flex-col lg:flex-row text-xs sm:text-base md:text-sm'>
-                                        <button type='submit' className="flex gap-1 items-center bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
-                                            Read More <AiFillRead />
-                                        </button>
-                                        <button type='submit' onClick={() => handleDelete(_id)} className="flex gap-1 items-center bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
-                                            Delete <MdDeleteSweep />
-                                        </button>
-                                    </div>
+                                    {/* Delete Button */}
+                                    <button type='submit' onClick={() => handleDelete(_id)} className="flex gap-1 items-center bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm sm:text-base md:text-sm">
+                                        Delete <MdDeleteSweep />
+                                    </button>
                                 </div>
                             </div>
                         ))}

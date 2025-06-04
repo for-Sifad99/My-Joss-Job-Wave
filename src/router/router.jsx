@@ -62,8 +62,10 @@ const router = createBrowserRouter([
                 element: <PrivetRouter><MyJobs /></PrivetRouter>
             },
             {
-                path: '/application/:id',
-                element: <PrivetRouter><ViewApplications /></PrivetRouter>
+                path: '/application/:job_id',
+                element: <PrivetRouter><ViewApplications /></PrivetRouter>,
+                loader: ({ params }) => fetch(`http://localhost:3000/applications/job/${params.job_id}`),
+                hydrateFallbackElement: <Loader />
             },
             {
                 path: '/contact',

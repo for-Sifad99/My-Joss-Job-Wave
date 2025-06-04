@@ -33,12 +33,14 @@ const MyJobs = () => {
     // Set loading
     if (loading) return <Loader />;
     return (
+
         <>
-        {/* Helmet */}
+            {/* Helmet */}
             <Helmet>
-                <title>My Posted Jobs | Job Wave</title>
+                <title>My Posted Jobs - Job Wave</title>
                 <meta name="description" content="Review and manage all the jobs you've posted on Job Wave. Edit, update, or track applications easily with confidence." />
             </Helmet>
+
 
             {/* Content */}
             <section className='max-w-7xl mx-auto flex flex-col-reverse md:flex-row gap-6 px-6 md:px-6 md:py-8 py-10'>
@@ -71,7 +73,7 @@ const MyJobs = () => {
                                             <td className='text-sm text-xs'>{job.applicationDeadline}</td>
                                             <td><Link to={`/application/${job._id}`} >
                                                 <button type='submit' className="flex gap-1 text-xs sm:text-base md:text-sm items-center bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
-                                                    View
+                                                    View Posts
                                                 </button>
                                             </Link></td>
                                         </tr>
