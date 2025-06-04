@@ -11,28 +11,27 @@ import useAuth from '../../hooks/UseAuth';
 
 const Applications = () => {
     const { user } = useAuth();
-    const email = user.email;
     const [applications, setApplications] = useState([]);
     const [loading, setLoading] = useState(true);
 
     // FETCH DATA in UseEffect
     useEffect(() => {
         const fetchApplications = async () => {
-            if (!email) return;
+            if (!user.email) return;
             setLoading(true);
 
             try {
-                const res = await myApplicationsPromise(email);
+                const res = await myApplicationsPromise(user.email);
                 setApplications(res);
             } catch (error) {
-                console.log(error.code);
+                console.log(error);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchApplications();
-    }, [email]);
+    }, [user.email]);
 
 
     const handleDelete = async (_id) => {

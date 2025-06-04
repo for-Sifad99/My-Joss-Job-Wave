@@ -13,6 +13,7 @@ import AllJobs from '../pages/AllJobs/AllJobs';
 import AddJob from '../pages/AddJob/AddJob';
 import Applications from '../pages/Applications/Applications';
 import MyJobs from '../pages/MyJobs/MyJobs';
+import ViewApplications from '../pages/ViewApplications/ViewApplications'
 import Contact from '../pages/Contact/Contact';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import Loader from '../pages/Shared/Loader';
@@ -58,7 +59,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/my-jobs',
-                Component: MyJobs
+                element: <PrivetRouter><MyJobs /></PrivetRouter>
+            },
+            {
+                path: '/application/:id',
+                element: <PrivetRouter><ViewApplications /></PrivetRouter>
             },
             {
                 path: '/contact',
