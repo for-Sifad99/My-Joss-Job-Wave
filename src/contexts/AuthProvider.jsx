@@ -57,15 +57,14 @@ const AuthProvider = ({ children }) => {
             if (currentUser?.email) {
                 const JWTtoken = { email: currentUser.email };
 
-                // Post JWTtoken to Server
-                axios.post('http://localhost:3000/jwt', JWTtoken)
+                axios.post('http://localhost:3000/jwt', JWTtoken, { withCredentials: true })
                     .then(res => {
-                        const token = res.data.token;
-                        // BAD Way to Save
-                        localStorage.setItem('token', token);
-                        // console.log('JWTtoken: ',token);
+                        const token = res.data;
+                        console.log('JWT Token: ',token);
                     })
-                    .catch(error => console.log(error));
+                    .catch(error => {
+                        console.log(error);
+                    });
             };
         });
     }, []);
