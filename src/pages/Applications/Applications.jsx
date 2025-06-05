@@ -16,11 +16,12 @@ const Applications = () => {
     // FETCH DATA in UseEffect
     useEffect(() => {
         const fetchApplications = async () => {
-            if (!user.email) return;
+            if (!user || !user.email) return;
+;
             setLoading(true);
 
             try {
-                const res = await myApplicationsPromise(user.email);
+                const res = await myApplicationsPromise(user.email, user.accessToken);
                 setApplications(res);
             } catch (error) {
                 console.log(error);
@@ -30,7 +31,7 @@ const Applications = () => {
         };
 
         fetchApplications();
-    }, [user.email]);
+    }, [user]);
 
 
     const handleDelete = async (_id) => {
